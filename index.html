@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roma 2026 — Il Nostro Viaggio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --terracotta: #c4622d;
+    --dark: #1a1410;
+    --warm-dark: #2d2318;
+    --muted: #8a7a6a;
+    --sand: #e8dcc8;
+    --stone: #d4c9b5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--warm-dark);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(201,168,76,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(196,98,45,0.10) 0%, transparent 60%),
+      linear-gradient(160deg, #1a1410 0%, #2d2318 50%, #1a1410 100%);
+  }
+
+  /* Colosseum silhouette SVG */
+  .colosseum-bg {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    max-width: 900px;
+    opacity: 0.13;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title span {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--stone);
+    margin-top: 1.5rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-info {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-info-item {
+    text-align: center;
+  }
+
+  .hero-info-item .label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-info-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--cream);
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--gold);
+    opacity: 0.4;
+    align-self: center;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.4; transform: scaleY(0.7); }
+  }
+
+  /* ── INFO STRIP ── */
+  .info-strip {
+    background: var(--gold);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    gap: 1.5rem 3rem;
+  }
+
+  .info-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--warm-dark);
+  }
+
+  .info-strip-item svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-section {
+    padding: 3rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+  }
+
+  .progress-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--warm-dark);
+  }
+
+  .progress-count {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .progress-bar-wrap {
+    height: 6px;
+    background: var(--stone);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ── NAVIGATION TABS ── */
+  .day-nav {
+    padding: 0 2rem;
+    max-width: 900px;
+    margin: 0 auto 0;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .day-nav::-webkit-scrollbar { display: none; }
+
+  .day-tab {
+    flex-shrink: 0;
+    padding: 0.6rem 1.2rem;
+    border: 1.5px solid var(--stone);
+    background: transparent;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--muted);
+    transition: all 0.25s;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .day-tab:hover {
+    border-color: var(--gold);
+    color: var(--dark);
+  }
+
+  .day-tab.active {
+    background: var(--warm-dark);
+    border-color: var(--warm-dark);
+    color: var(--cream);
+  }
+
+  .day-tab .done-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .day-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .day-panel.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--stone);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .day-number {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.3rem;
+  }
+
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: var(--warm-dark);
+    line-height: 1.1;
+  }
+
+  .day-title em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .day-completion {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── SECTION HEADERS (mattina / pomeriggio / sera) ── */
+  .time-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .time-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .time-label-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .time-label-icon.morning { background: #fff3cd; }
+  .time-label-icon.afternoon { background: #ffe4d1; }
+  .time-label-icon.evening { background: #2d2318; color: #fff; }
+
+  .time-label-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ── ACTIVITY ITEMS ── */
+  .activity {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.6rem;
+    background: white;
+    border-radius: 12px;
+    border: 1.5px solid var(--stone);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .activity::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--stone);
+    transition: background 0.2s;
+  }
+
+  .activity:hover {
+    border-color: var(--gold-light);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .activity.checked {
+    background: #fafaf7;
+    border-color: var(--gold-light);
+  }
+
+  .activity.checked::before {
+    background: var(--gold);
+  }
+
+  .activity-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--stone);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .activity.checked .activity-checkbox {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .activity-checkbox svg {
+    width: 12px;
+    height: 12px;
+    stroke: white;
+    stroke-width: 3;
+    fill: none;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s;
+  }
+
+  .activity.checked .activity-checkbox svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .activity-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .activity-time {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .activity-text {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--dark);
+    transition: color 0.2s;
+  }
+
+  .activity.checked .activity-text {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--gold-light);
+  }
+
+  .activity-badge {
+    font-size: 0.62rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .badge-ticket {
+    background: #fff0e6;
+    color: var(--terracotta);
+    border: 1px solid #ffd4b8;
+  }
+
+  .badge-free {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+
+  .badge-food {
+    background: #fff8e1;
+    color: #f57f17;
+    border: 1px solid #ffe082;
+  }
+
+  .badge-transport {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+  }
+
+  /* ── TIPS BOX ── */
+  .tips-box {
+    background: var(--warm-dark);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    color: var(--cream);
+  }
+
+  .tips-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tips-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tips-box ul li {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--stone);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .tips-box ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    line-height: 1;
+    top: 1px;
+  }
+
+  /* ── BUDGET SECTION ── */
+  .budget-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 2rem 4rem;
+  }
+
+  .budget-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--warm-dark);
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--stone);
+  }
+
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .budget-card {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+
+  .budget-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .budget-card-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--warm-dark);
+  }
+
+  .budget-card-detail {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  .budget-total {
+    grid-column: 1 / -1;
+    background: var(--warm-dark);
+    border-color: var(--warm-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .budget-total .budget-card-label { color: var(--gold); }
+  .budget-total .budget-card-amount { color: var(--cream); font-size: 2rem; }
+  .budget-total .budget-card-detail { color: var(--stone); }
+
+  /* ── FOOTER DECORATION ── */
+  .footer-deco {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    border-top: 1px solid var(--stone);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── DECORATIVE ELEMENTS ── */
+  .roma-ornament {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+    margin: 0.5rem 0;
+    user-select: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .hero-info { gap: 1rem; }
+    .hero-divider { display: none; }
+    .info-strip { gap: 0.8rem 2rem; }
+    .budget-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Colosseum SVG silhouette -->
+  <svg class="colosseum-bg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" fill="var(--cream)">
+    <ellipse cx="450" cy="280" rx="420" ry="200"/>
+    <rect x="30" y="140" width="840" height="160"/>
+    <!-- arches row 1 -->
+    <g fill="var(--warm-dark)">
+      <rect x="60" y="160" width="25" height="80" rx="3"/>
+      <rect x="110" y="160" width="25" height="80" rx="3"/>
+      <rect x="160" y="160" width="25" height="80" rx="3"/>
+      <rect x="210" y="160" width="25" height="80" rx="3"/>
+      <rect x="260" y="160" width="25" height="80" rx="3"/>
+      <rect x="310" y="160" width="25" height="80" rx="3"/>
+      <rect x="360" y="160" width="25" height="80" rx="3"/>
+      <rect x="410" y="160" width="25" height="80" rx="3"/>
+      <rect x="460" y="160" width="25" height="80" rx="3"/>
+      <rect x="510" y="160" width="25" height="80" rx="3"/>
+      <rect x="560" y="160" width="25" height="80" rx="3"/>
+      <rect x="610" y="160" width="25" height="80" rx="3"/>
+      <rect x="660" y="160" width="25" height="80" rx="3"/>
+      <rect x="710" y="160" width="25" height="80" rx="3"/>
+      <rect x="760" y="160" width="25" height="80" rx="3"/>
+      <rect x="810" y="160" width="25" height="80" rx="3"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Viaggio &nbsp;·&nbsp; 26–30 Giugno 2026 ✦</p>
+    <h1 class="hero-title">ROMA<span>Aeterna</span></h1>
+    <p class="hero-subtitle">Foggia → Roma · 5 giorni nell'Urbe</p>
+    <div class="hero-info">
+      <div class="hero-info-item">
+        <p class="label">Hotel</p>
+        <p class="value">Via Germanico 146, Prati</p>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-info-item">
+        <p class="label">Partenza</p>
+        <p class="value">FlixBus ore 07:55</p>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-info-item">
+        <p class="label">Budget</p>
+        <p class="value">~696 € (2 pax)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scorri</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+    Via Germanico 146, Prati
+  </div>
+  <div class="info-strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="22" height="15" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    Metro A · Fermata Lepanto
+  </div>
+  <div class="info-strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+    Check-out 30 giugno ore 11:30
+  </div>
+  <div class="info-strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+    Roma Tiburtina 14:50 → Foggia
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-header">
+    <span class="progress-label">Progresso del viaggio</span>
+    <span class="progress-count" id="progress-text">0 di 31 attività completate</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- DAY NAVIGATION -->
+<nav class="day-nav">
+  <button class="day-tab active" onclick="showDay(0)">Ven 26/6 · Arrivo</button>
+  <button class="day-tab" onclick="showDay(1)">Sab 27/6 · Colosseo</button>
+  <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Trastevere</button>
+  <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Vaticano</button>
+  <button class="day-tab" onclick="showDay(4)">Mar 30/6 · Partenza</button>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <!-- ── GIORNO 1 ── -->
+  <div class="day-panel active" id="day-0">
+    <div class="day-header">
+      <div>
+        <p class="day-number">Giorno 1</p>
+        <h2 class="day-title">Venerdì 26 Giugno<br><em>Foggia → Roma</em></h2>
+      </div>
+      <span class="day-completion" id="day-0-comp"></span>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon morning">🌅</div>
+        <span class="time-label-text">Mattina · Il Viaggio</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">07:55</p>
+          <p class="activity-text">Partenza in pullman FlixBus da Foggia (stazione FS). Il viaggio dura circa 5 ore.</p>
+        </div>
+        <span class="activity-badge badge-transport">FlixBus</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:00</p>
+          <p class="activity-text">Arrivo a Roma Tiburtina. Prendere treno FR2 → Termini (≈6 min), poi Metro A → Lepanto (4 fermate). Check-in hotel e deposito bagagli.</p>
+        </div>
+        <span class="activity-badge badge-transport">Metro A</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Vaticano</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">14:00</p>
+          <p class="activity-text">Pranzo veloce in zona Vaticano — pizza al taglio o trattoria tipica.</p>
+        </div>
+        <span class="activity-badge badge-food">Pranzo</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">15:00</p>
+          <p class="activity-text">Basilica di San Pietro — ingresso gratuito (spalle e ginocchia coperte). Apertura estiva 7:00–19:10. Eventuale salita alla Cupola (~10 € con ascensore). Tempo stimato: 1–2 ore.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:30</p>
+          <p class="activity-text">Passeggiata a Piazza del Risorgimento e vie limitrofe di Prati. Oppure riposo in hotel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌙</div>
+        <span class="time-label-text">Sera · Prati</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">19:30</p>
+          <p class="activity-text">Cena tipica in Prati — trattoria in Via Cola di Rienzo o Borgo Pio. Consigliate: amatriciana, cacio e pepe, carciofi alla giudia. Poi riposo.</p>
+        </div>
+        <span class="activity-badge badge-food">Cena</span>
+      </div>
+    </div>
+
+    <div class="tips-box">
+      <h4>⚑ Consigli per oggi</h4>
+      <ul>
+        <li>Abbigliamento adatto alla basilica: niente spalle scoperte né pantaloni corti</li>
+        <li>La Cupola si affronta meglio a fine pomeriggio con luce calda</li>
+        <li>I "nasoni" (fontanelli) sono gratuiti — porta una borraccia</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── GIORNO 2 ── -->
+  <div class="day-panel" id="day-1">
+    <div class="day-header">
+      <div>
+        <p class="day-number">Giorno 2</p>
+        <h2 class="day-title">Sabato 27 Giugno<br><em>Colosseo &amp; Centro Storico</em></h2>
+      </div>
+      <span class="day-completion" id="day-1-comp"></span>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon morning">🌅</div>
+        <span class="time-label-text">Mattina · Il Cuore Antico</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">08:30</p>
+          <p class="activity-text">Colazione in hotel o caffè rapido.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">09:00</p>
+          <p class="activity-text">Colosseo — biglietto integrato Colosseo+Foro+Palatino (~18 € p.p., prenotato online). Da Lepanto: Metro A → Termini, Metro B → Colosseo (3 min). Visita 2–3 ore con audioguida.</p>
+        </div>
+        <span class="activity-badge badge-ticket">~18 €/p</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:00</p>
+          <p class="activity-text">Foro Romano e Palatino — incluso nel biglietto. Percorso tra le rovine storiche. Durata circa 2 ore.</p>
+        </div>
+        <span class="activity-badge badge-free">Incluso</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:30</p>
+          <p class="activity-text">Pranzo nel Rione Monti — pizzerie e trattorie tipiche a pochi passi dal Foro.</p>
+        </div>
+        <span class="activity-badge badge-food">Pranzo</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Le Piazze Eterne</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">15:00</p>
+          <p class="activity-text">Piazza Venezia e Altare della Patria, poi Via del Corso. Sosta a Piazza di Spagna con Scalinata di Trinità dei Monti e Fontana della Barcaccia.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">16:00</p>
+          <p class="activity-text">Pantheon — visita interna (aperto 9:00–19:00). Poi Piazza Navona: ammirare la Fontana dei Quattro Fiumi del Bernini.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:30</p>
+          <p class="activity-text">Fontana di Trevi — lanciare la monetina per assicurarsi il ritorno a Roma! Foto ricordo nel tardo pomeriggio con luce dorata.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌙</div>
+        <span class="time-label-text">Sera · Atmosfera Tipica</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">19:30</p>
+          <p class="activity-text">Rientro in hotel (Metro A da Barberini o Spagna). Cena consigliata nella zona Monti o Trastevere — atmosfera serale tipica.</p>
+        </div>
+        <span class="activity-badge badge-food">Cena</span>
+      </div>
+    </div>
+
+    <div class="tips-box">
+      <h4>⚑ Consigli per oggi</h4>
+      <ul>
+        <li>Biglietti Colosseo: prenotare su ticketing.colosseo.it per evitare file</li>
+        <li>Dalla metro Barberini si raggiunge facilmente sia Trevi che Piazza di Spagna</li>
+        <li>La Fontana di Trevi è meno affollata nelle ore serali</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── GIORNO 3 ── -->
+  <div class="day-panel" id="day-2">
+    <div class="day-header">
+      <div>
+        <p class="day-number">Giorno 3</p>
+        <h2 class="day-title">Domenica 28 Giugno<br><em>Trastevere &amp; Gianicolo</em></h2>
+      </div>
+      <span class="day-completion" id="day-2-comp"></span>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon morning">🌅</div>
+        <span class="time-label-text">Mattina · Il Colle e il Quartiere</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">09:00</p>
+          <p class="activity-text">Colazione in hotel.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">10:00</p>
+          <p class="activity-text">Da Lepanto autobus 490/982 fino a Piazza San Giovanni di Dio (Trastevere), poi salita a piedi o bus 12 per il Gianicolo. Panorama mozzafiato su Roma e i suoi sette colli.</p>
+        </div>
+        <span class="activity-badge badge-transport">Bus</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">11:00</p>
+          <p class="activity-text">Discesa a piedi verso Santa Maria in Trastevere — basilica del XIII secolo con splendidi mosaici medievali dorati.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Tra Rovine e Vicoli</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:00</p>
+          <p class="activity-text">Pranzo a Trastevere in pizzeria o osteria tipica — prova la coda alla vaccinara o la pasta alla gricia!</p>
+        </div>
+        <span class="activity-badge badge-food">Pranzo</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">14:30</p>
+          <p class="activity-text">Attraversare il Tevere sul Ponte Fabricio: Basilica di Santa Cecilia in Trastevere (cripte e opere). Poi Largo Argentina (tempietti antichi + gattile) e Campo de' Fiori.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">16:30</p>
+          <p class="activity-text">Circo Massimo (resti del circo antico) e Bocca della Verità — S. Maria in Cosmedin. Alternativa: Aventino per il Giardino degli Aranci e il "Buco di Roma" (San Pietro visibile attraverso una serratura).</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">18:30</p>
+          <p class="activity-text">Rientro in tram verso l'hotel.</p>
+        </div>
+        <span class="activity-badge badge-transport">Tram</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌙</div>
+        <span class="time-label-text">Sera · Vicoli Medievali</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">20:00</p>
+          <p class="activity-text">Cena romantica a Trastevere (vicoli medievali, vini laziali) o nei pressi dell'hotel al rientro.</p>
+        </div>
+        <span class="activity-badge badge-food">Cena</span>
+      </div>
+    </div>
+
+    <div class="tips-box">
+      <h4>⚑ Consigli per oggi</h4>
+      <ul>
+        <li>Il "Buco di Roma" all'Aventino: fila, ma vale assolutamente la pena</li>
+        <li>Largo Argentina ha anche un rifugio per gatti — i gatti romani sono una vera istituzione!</li>
+        <li>Trastevere di notte è magica: resta un po' dopo cena tra i vicoli illuminati</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── GIORNO 4 ── -->
+  <div class="day-panel" id="day-3">
+    <div class="day-header">
+      <div>
+        <p class="day-number">Giorno 4</p>
+        <h2 class="day-title">Lunedì 29 Giugno<br><em>Musei Vaticani &amp; Prati</em></h2>
+      </div>
+      <span class="day-completion" id="day-3-comp"></span>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon morning">🌅</div>
+        <span class="time-label-text">Mattina · Cappella Sistina</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">08:30</p>
+          <p class="activity-text">Colazione in hotel.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">09:00</p>
+          <p class="activity-text">Musei Vaticani — orari estivi 8:00–20:00. Biglietto online ~25 € (include Cappella Sistina e Stanze di Raffaello). Durata visita: 2–3 ore. ⚠️ Il 29 giugno (Santi Pietro e Paolo) il museo è aperto.</p>
+        </div>
+        <span class="activity-badge badge-ticket">~25 €/p</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:30</p>
+          <p class="activity-text">Uscita dal museo, passeggiata nel Cortile della Pigna. Spostamento verso la Basilica di San Pietro — eventuale salita alla Cupola al tramonto.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:30</p>
+          <p class="activity-text">Pranzo leggero nei dintorni — pranzo veloce in Prati o in zona Vaticano.</p>
+        </div>
+        <span class="activity-badge badge-food">Pranzo</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Castel Sant'Angelo</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">15:00</p>
+          <p class="activity-text">Castel Sant'Angelo — dal Vaticano a piedi via ponte (~15 min). Biglietto ~15 €. Giro interno tra i camminamenti e terrazza panoramica sul Tevere e il centro storico.</p>
+        </div>
+        <span class="activity-badge badge-ticket">~15 €/p</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:00</p>
+          <p class="activity-text">Passeggiata su Via Cola di Rienzo — shopping nel cuore di Prati. Oppure relax in hotel prima della cena.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌙</div>
+        <span class="time-label-text">Sera · Vista su San Pietro</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">18:00</p>
+          <p class="activity-text">⚠️ Festività Pietro e Paolo: alle 18:00 il Papa tiene la Messa in Piazza San Pietro. Possibili chiusure e assembramenti — pianificare di conseguenza.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">19:30</p>
+          <p class="activity-text">Cena nei pressi del Vaticano o borgo — Osteria del Fico, Osteria dell'Orologio. Vista serale di San Pietro illuminata.</p>
+        </div>
+        <span class="activity-badge badge-food">Cena</span>
+      </div>
+    </div>
+
+    <div class="tips-box">
+      <h4>⚑ Consigli per oggi</h4>
+      <ul>
+        <li>Prenotare i Musei Vaticani su tickets.museivaticani.va — evita code di ore</li>
+        <li>Il 29 giugno è festa dei Santi Pietro e Paolo: considera la Messa papale come esperienza unica</li>
+        <li>Dalla terrazza del Castel Sant'Angelo: uno dei panorami più belli di Roma</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── GIORNO 5 ── -->
+  <div class="day-panel" id="day-4">
+    <div class="day-header">
+      <div>
+        <p class="day-number">Giorno 5</p>
+        <h2 class="day-title">Martedì 30 Giugno<br><em>Mattina Libera &amp; Ritorno</em></h2>
+      </div>
+      <span class="day-completion" id="day-4-comp"></span>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon morning">🌅</div>
+        <span class="time-label-text">Mattina · Gli Ultimi Sapori di Roma</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">08:30</p>
+          <p class="activity-text">Colazione e ultimo giro in zona hotel. Possibile visita a Piazza del Popolo e Terrazza del Pincio, o shopping finale in via Cola di Rienzo.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">11:30</p>
+          <p class="activity-text">Check-out dall'hotel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Arrivederci Roma</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:00</p>
+          <p class="activity-text">Trasferimento a Tiburtina — Metro A da Lepanto a Termini, poi treno FR2 per Roma Tiburtina (~15 min totali).</p>
+        </div>
+        <span class="activity-badge badge-transport">Metro + FR2</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">14:50</p>
+          <p class="activity-text">Partenza FlixBus da Roma Tiburtina → Foggia. Arrivo previsto ore 19:20. Fine del viaggio. Arrivederci, Roma! 🌹</p>
+        </div>
+        <span class="activity-badge badge-transport">FlixBus</span>
+      </div>
+    </div>
+
+    <div class="tips-box">
+      <h4>⚑ Consigli per oggi</h4>
+      <ul>
+        <li>Arrivare a Tiburtina con almeno 30 minuti di anticipo</li>
+        <li>Ultimi souvenir: i "nasoni" hanno le monete romane — scherzo! Ultimo gelato però è d'obbligo</li>
+        <li>Largo Argentina è vicino al centro e ottimo per un ultimo colpo d'occhio sulle rovine romane</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<!-- BUDGET -->
+<section class="budget-section">
+  <h3 class="budget-title">💶 Budget Stimato · 2 Persone</h3>
+  <div class="budget-grid">
+    <div class="budget-card">
+      <p class="budget-card-label">FlixBus A/R</p>
+      <p class="budget-card-amount">~80 €</p>
+      <p class="budget-card-detail">40 € × 2 persone</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Trasporti locali</p>
+      <p class="budget-card-amount">~30 €</p>
+      <p class="budget-card-detail">BIT + tessere 72h</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Musei Vaticani</p>
+      <p class="budget-card-amount">~50 €</p>
+      <p class="budget-card-detail">25 € × 2 persone</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Colosseo + Foro</p>
+      <p class="budget-card-amount">~36 €</p>
+      <p class="budget-card-detail">18 € × 2 persone</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Castel Sant'Angelo</p>
+      <p class="budget-card-amount">~30 €</p>
+      <p class="budget-card-detail">15 € × 2 persone</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Pasti (5 giorni)</p>
+      <p class="budget-card-amount">~450 €</p>
+      <p class="budget-card-detail">Pranzi + cene per 2</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Varie</p>
+      <p class="budget-card-amount">~50 €</p>
+      <p class="budget-card-detail">Souvenir, gelati, ecc.</p>
+    </div>
+    <div class="budget-card budget-total">
+      <div>
+        <p class="budget-card-label">Totale indicativo</p>
+        <p class="budget-card-detail">I prezzi sono orientativi</p>
+      </div>
+      <p class="budget-card-amount">~696 €</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer-deco">
+  <p class="roma-ornament">✦ · ✦ · ✦</p>
+  <p>"Roma, non si finisce mai" — E. M. Forster</p>
+  <p style="font-size:0.75rem; margin-top:0.5rem; font-family:'DM Sans',sans-serif; font-style:normal; color:var(--muted)">Le spunte vengono salvate nel browser — nessun account necessario.</p>
+</div>
+
+<script>
+  const STORAGE_KEY = 'roma2026_checked';
+
+  // Load saved state
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch(e) { return {}; }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  // Assign unique IDs to all activities
+  document.querySelectorAll('.activity').forEach((el, i) => {
+    el.dataset.id = 'act_' + i;
+  });
+
+  // Restore checked state
+  const state = loadState();
+  document.querySelectorAll('.activity').forEach(el => {
+    if (state[el.dataset.id]) {
+      el.classList.add('checked');
+    }
+  });
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+    const s = loadState();
+    s[el.dataset.id] = el.classList.contains('checked');
+    saveState(s);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.activity');
+    const done = document.querySelectorAll('.activity.checked');
+    const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
+
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = `${done.length} di ${all.length} attività completate`;
+
+    // Update per-day completion labels + tab dots
+    const tabs = document.querySelectorAll('.day-tab');
+    for (let d = 0; d < 5; d++) {
+      const panel = document.getElementById('day-' + d);
+      const dayAll = panel.querySelectorAll('.activity');
+      const dayDone = panel.querySelectorAll('.activity.checked');
+      const comp = document.getElementById('day-' + d + '-comp');
+      if (comp) comp.textContent = `${dayDone.length}/${dayAll.length} completate`;
+
+      // Add/remove gold dot on tab
+      const tab = tabs[d];
+      const existingDot = tab.querySelector('.done-dot');
+      if (dayDone.length > 0 && dayDone.length === dayAll.length) {
+        if (!existingDot) tab.insertAdjacentHTML('beforeend', '<span class="done-dot"></span>');
+      } else {
+        if (existingDot) existingDot.remove();
+      }
+    }
+  }
+
+  function showDay(idx) {
+    document.querySelectorAll('.day-panel').forEach((p, i) => {
+      p.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.day-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === idx);
+    });
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
