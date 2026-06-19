@@ -28,7 +28,6 @@
     overflow-x: hidden;
   }
 
-  /* ── HERO ── */
   .hero {
     position: relative;
     height: 100vh;
@@ -50,7 +49,6 @@
       linear-gradient(160deg, #1a1410 0%, #2d2318 50%, #1a1410 100%);
   }
 
-  /* Colosseum silhouette SVG */
   .colosseum-bg {
     position: absolute;
     bottom: 0;
@@ -60,6 +58,16 @@
     max-width: 900px;
     opacity: 0.13;
     pointer-events: none;
+  }
+
+  .laurel {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    opacity: 0.5;
   }
 
   .hero-content {
@@ -112,6 +120,7 @@
     gap: 3rem;
     margin-top: 3rem;
     justify-content: center;
+    flex-wrap: wrap;
     opacity: 0;
     animation: fadeUp 0.8s 0.8s forwards;
   }
@@ -171,14 +180,12 @@
     50% { opacity: 0.4; transform: scaleY(0.7); }
   }
 
-  /* ── INFO STRIP ── */
   .info-strip {
     background: var(--gold);
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
     flex-wrap: wrap;
     gap: 1.5rem 3rem;
   }
@@ -198,7 +205,6 @@
     flex-shrink: 0;
   }
 
-  /* ── PROGRESS BAR ── */
   .progress-section {
     padding: 3rem 2rem 2rem;
     max-width: 900px;
@@ -238,7 +244,6 @@
     transition: width 0.5s cubic-bezier(.4,0,.2,1);
   }
 
-  /* ── NAVIGATION TABS ── */
   .day-nav {
     padding: 0 2rem;
     max-width: 900px;
@@ -288,7 +293,6 @@
     vertical-align: middle;
   }
 
-  /* ── MAIN CONTENT ── */
   .main-content {
     max-width: 900px;
     margin: 0 auto;
@@ -347,7 +351,6 @@
     white-space: nowrap;
   }
 
-  /* ── SECTION HEADERS (mattina / pomeriggio / sera) ── */
   .time-section {
     margin-bottom: 2.5rem;
   }
@@ -373,6 +376,7 @@
   .time-label-icon.morning { background: #fff3cd; }
   .time-label-icon.afternoon { background: #ffe4d1; }
   .time-label-icon.evening { background: #2d2318; color: #fff; }
+  .time-label-icon.food { background: #ffe0e0; }
 
   .time-label-text {
     font-size: 0.65rem;
@@ -382,7 +386,6 @@
     font-weight: 500;
   }
 
-  /* ── ACTIVITY ITEMS ── */
   .activity {
     display: flex;
     align-items: flex-start;
@@ -497,31 +500,133 @@
     margin-top: 2px;
   }
 
-  .badge-ticket {
-    background: #fff0e6;
+  .badge-ticket { background: #fff0e6; color: var(--terracotta); border: 1px solid #ffd4b8; }
+  .badge-free { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+  .badge-food { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+  .badge-transport { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+
+  .restaurant-card {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.7rem;
+    transition: all 0.2s;
+  }
+
+  .restaurant-card:hover {
+    border-color: var(--gold-light);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .restaurant-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .restaurant-meal-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--terracotta);
-    border: 1px solid #ffd4b8;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    display: block;
   }
 
-  .badge-free {
-    background: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
+  .restaurant-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--warm-dark);
+    font-weight: 700;
   }
 
-  .badge-food {
-    background: #fff8e1;
-    color: #f57f17;
-    border: 1px solid #ffe082;
+  .restaurant-name .rank {
+    font-size: 0.7rem;
+    background: var(--gold);
+    color: white;
+    padding: 0.1rem 0.45rem;
+    border-radius: 100px;
+    margin-right: 0.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    vertical-align: middle;
   }
 
-  .badge-transport {
-    background: #e3f2fd;
-    color: #1565c0;
-    border: 1px solid #bbdefb;
+  .restaurant-address {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
   }
 
-  /* ── TIPS BOX ── */
+  .restaurant-address svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    stroke: var(--muted);
+  }
+
+  .restaurant-links {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .link-btn svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  .link-maps {
+    background: #e8f0fe;
+    color: #1a73e8;
+    border: 1px solid #c2dbff;
+  }
+
+  .link-maps:hover {
+    background: #1a73e8;
+    color: white;
+  }
+
+  .link-trip {
+    background: #e8f5ea;
+    color: #00854a;
+    border: 1px solid #b8e6c4;
+  }
+
+  .link-trip:hover {
+    background: #00854a;
+    color: white;
+  }
+
+  .restaurant-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+
   .tips-box {
     background: var(--warm-dark);
     border-radius: 14px;
@@ -565,7 +670,6 @@
     top: 1px;
   }
 
-  /* ── BUDGET SECTION ── */
   .budget-section {
     max-width: 900px;
     margin: 0 auto;
@@ -627,7 +731,76 @@
   .budget-total .budget-card-amount { color: var(--cream); font-size: 2rem; }
   .budget-total .budget-card-detail { color: var(--stone); }
 
-  /* ── FOOTER DECORATION ── */
+  .directory-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 2rem 3rem;
+  }
+
+  .directory-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--warm-dark);
+    margin-bottom: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--stone);
+  }
+
+  .directory-subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .directory-search {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 1.5px solid var(--stone);
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .directory-search:focus {
+    border-color: var(--gold);
+  }
+
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .directory-card {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .directory-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--warm-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .directory-card-addr {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .directory-card-links {
+    display: flex;
+    gap: 0.5rem;
+  }
+
   .footer-deco {
     text-align: center;
     padding: 2rem;
@@ -640,7 +813,6 @@
     margin: 0 auto;
   }
 
-  /* ── DECORATIVE ELEMENTS ── */
   .roma-ornament {
     text-align: center;
     color: var(--gold);
@@ -661,20 +833,18 @@
     .hero-divider { display: none; }
     .info-strip { gap: 0.8rem 2rem; }
     .budget-grid { grid-template-columns: 1fr 1fr; }
+    .directory-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
 
-  <!-- Colosseum SVG silhouette -->
   <svg class="colosseum-bg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" fill="var(--cream)">
     <ellipse cx="450" cy="280" rx="420" ry="200"/>
     <rect x="30" y="140" width="840" height="160"/>
-    <!-- arches row 1 -->
     <g fill="var(--warm-dark)">
       <rect x="60" y="160" width="25" height="80" rx="3"/>
       <rect x="110" y="160" width="25" height="80" rx="3"/>
@@ -695,6 +865,13 @@
     </g>
   </svg>
 
+  <svg class="laurel" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#c9a84c" stroke-width="2">
+    <path d="M50 15 Q30 25 28 50 Q30 75 50 85" stroke-linecap="round"/>
+    <path d="M50 15 Q70 25 72 50 Q70 75 50 85" stroke-linecap="round"/>
+    <path d="M30 25 L22 22 M28 35 L19 33 M27 45 L18 44 M28 55 L19 57 M30 65 L22 69 M35 75 L28 80" stroke-linecap="round"/>
+    <path d="M70 25 L78 22 M72 35 L81 33 M73 45 L82 44 M72 55 L81 57 M70 65 L78 69 M65 75 L72 80" stroke-linecap="round"/>
+  </svg>
+
   <div class="hero-content">
     <p class="hero-eyebrow">✦ Viaggio &nbsp;·&nbsp; 26–30 Giugno 2026 ✦</p>
     <h1 class="hero-title">ROMA<span>Aeterna</span></h1>
@@ -712,7 +889,7 @@
       <div class="hero-divider"></div>
       <div class="hero-info-item">
         <p class="label">Budget</p>
-        <p class="value">~696 € (2 pax)</p>
+        <p class="value">~646 € (2 pax)</p>
       </div>
     </div>
   </div>
@@ -723,7 +900,6 @@
   </div>
 </section>
 
-<!-- INFO STRIP -->
 <div class="info-strip">
   <div class="info-strip-item">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
@@ -743,30 +919,26 @@
   </div>
 </div>
 
-<!-- PROGRESS -->
 <div class="progress-section">
   <div class="progress-header">
     <span class="progress-label">Progresso del viaggio</span>
-    <span class="progress-count" id="progress-text">0 di 31 attività completate</span>
+    <span class="progress-count" id="progress-text">0 attività completate</span>
   </div>
   <div class="progress-bar-wrap">
     <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
   </div>
 </div>
 
-<!-- DAY NAVIGATION -->
 <nav class="day-nav">
   <button class="day-tab active" onclick="showDay(0)">Ven 26/6 · Arrivo</button>
   <button class="day-tab" onclick="showDay(1)">Sab 27/6 · Colosseo</button>
   <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Trastevere</button>
-  <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Vaticano</button>
+  <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Borghese</button>
   <button class="day-tab" onclick="showDay(4)">Mar 30/6 · Partenza</button>
 </nav>
 
-<!-- MAIN CONTENT -->
 <main class="main-content">
 
-  <!-- ── GIORNO 1 ── -->
   <div class="day-panel active" id="day-0">
     <div class="day-header">
       <div>
@@ -831,16 +1003,80 @@
 
     <div class="time-section">
       <div class="time-label">
-        <div class="time-label-icon evening">🌙</div>
-        <span class="time-label-text">Sera · Prati</span>
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Dove Mangiare · Giorno 1</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍦 Pranzo (appena arrivati)</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Lemongrass Gelato</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Ottaviano, 29, 00192 Roma — a 5 minuti dall'alloggio
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/ovEyzXWbVENf4r5Y8" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4150915-Reviews-Lemongrass_Gelato-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍝 Cena</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Su & Giu Cucina Romana</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Tacito 42, vicino Piazza Cola di Rienzo, 00193 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/WiwjaRVViKXrxnLx5" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2320420-Reviews-Su_Giu_Cucina_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Alternativa: 🍕 Ai Balestrari in Prati</p>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍦 Dopocena</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Lemongrass Gelato</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Ottaviano, 29, 00192 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/ovEyzXWbVENf4r5Y8" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4150915-Reviews-Lemongrass_Gelato-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">19:30</p>
-          <p class="activity-text">Cena tipica in Prati — trattoria in Via Cola di Rienzo o Borgo Pio. Consigliate: amatriciana, cacio e pepe, carciofi alla giudia. Poi riposo.</p>
+          <p class="activity-time">Sera</p>
+          <p class="activity-text">Riposo dopo il primo giorno di viaggio.</p>
         </div>
-        <span class="activity-badge badge-food">Cena</span>
       </div>
     </div>
 
@@ -854,7 +1090,6 @@
     </div>
   </div>
 
-  <!-- ── GIORNO 2 ── -->
   <div class="day-panel" id="day-1">
     <div class="day-header">
       <div>
@@ -892,13 +1127,32 @@
         </div>
         <span class="activity-badge badge-free">Incluso</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">13:30</p>
-          <p class="activity-text">Pranzo nel Rione Monti — pizzerie e trattorie tipiche a pochi passi dal Foro.</p>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Pranzo · Rione Monti</span>
+      </div>
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍝 Pranzo (davanti al Colosseo)</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Ristoro Della Salute</span>
         </div>
-        <span class="activity-badge badge-food">Pranzo</span>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Piazza del Colosseo 2A, 00184 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
       </div>
     </div>
 
@@ -913,7 +1167,6 @@
           <p class="activity-time">15:00</p>
           <p class="activity-text">Piazza Venezia e Altare della Patria, poi Via del Corso. Sosta a Piazza di Spagna con Scalinata di Trinità dei Monti e Fontana della Barcaccia.</p>
         </div>
-        <span class="activity-badge badge-free">Gratuito</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
@@ -929,20 +1182,84 @@
           <p class="activity-text">Fontana di Trevi — lanciare la monetina per assicurarsi il ritorno a Roma! Foto ricordo nel tardo pomeriggio con luce dorata.</p>
         </div>
       </div>
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🍨 Merenda / Dolce</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Gelateria La Romana dal 1947</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Venti Settembre 60 (incrocio Via Piave), 00184 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/nLEPEMeCnYa8bN127" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4492728-Reviews-Gelateria_La_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
-        <div class="time-label-icon evening">🌙</div>
-        <span class="time-label-text">Sera · Atmosfera Tipica</span>
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Cena · Zona Monti</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">1°</span>Hosteria Romana</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via del Boccaccio, 1 (angolo Via Rasella), 00187 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/eQdLmfAcDFVemE1m7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1035927-Reviews-Hosteria_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">2°</span>Trattoria della Stampa</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          32 Via dei Maroniti, 00187 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/7y1ZB19rgRK95BaGA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2092218-Reviews-Trattoria_della_Stampa-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Entrambe perfette dopo Fontana di Trevi e Piazza di Spagna.</p>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">19:30</p>
-          <p class="activity-text">Rientro in hotel (Metro A da Barberini o Spagna). Cena consigliata nella zona Monti o Trastevere — atmosfera serale tipica.</p>
+          <p class="activity-text">Rientro in hotel (Metro A da Barberini o Spagna) dopo cena.</p>
         </div>
-        <span class="activity-badge badge-food">Cena</span>
       </div>
     </div>
 
@@ -956,7 +1273,6 @@
     </div>
   </div>
 
-  <!-- ── GIORNO 3 ── -->
   <div class="day-panel" id="day-2">
     <div class="day-header">
       <div>
@@ -994,6 +1310,77 @@
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🧆 Spuntino mattutino</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Supplì</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via di San Francesco a Ripa, 137, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/1Kw5M3MphpptJETW9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4107856-Reviews-Suppli-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Pranzo · Trastevere</span>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">1°</span>Tonnarello</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Della Paglia 1,2,3, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/AreyYpqsC9QKJaSB9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d13443832-Reviews-Tonnarello-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">2°</span>Nannarella</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Piazza Di San Calisto 7/A-8, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/9gz7upp9b884jkdr6" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d14173461-Reviews-Nannarella-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Sono praticamente uno accanto all'altro!</p>
+      </div>
     </div>
 
     <div class="time-section">
@@ -1004,19 +1391,33 @@
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">13:00</p>
-          <p class="activity-text">Pranzo a Trastevere in pizzeria o osteria tipica — prova la coda alla vaccinara o la pasta alla gricia!</p>
-        </div>
-        <span class="activity-badge badge-food">Pranzo</span>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
           <p class="activity-time">14:30</p>
           <p class="activity-text">Attraversare il Tevere sul Ponte Fabricio: Basilica di Santa Cecilia in Trastevere (cripte e opere). Poi Largo Argentina (tempietti antichi + gattile) e Campo de' Fiori.</p>
         </div>
       </div>
-      <div class="activity" onclick="toggle(this)">
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🍦 Gelato</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">La Gelateria Frigidarium</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via del Governo Vecchio 112, 00186 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/Yvn2qWBSWYD7iMuQ8" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1536028-Reviews-La_Gelateria_Frigidarium-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">16:30</p>
@@ -1036,16 +1437,51 @@
 
     <div class="time-section">
       <div class="time-label">
-        <div class="time-label-icon evening">🌙</div>
-        <span class="time-label-text">Sera · Vicoli Medievali</span>
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Cena · Trastevere o Testaccio</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">20:00</p>
-          <p class="activity-text">Cena romantica a Trastevere (vicoli medievali, vini laziali) o nei pressi dell'hotel al rientro.</p>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">1°</span>Trattoria Dal Cordaro</span>
         </div>
-        <span class="activity-badge badge-food">Cena</span>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Piazzale Portuense 4, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/WMMfZn1iVtrBT7HL9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d953343-Reviews-Trattoria_Dal_Cordaro_Roma-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">2°</span>Rosa - Cibo Italiano</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Aldo Manuzio 66C, Nuovo Mercato di Testaccio, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/xNeUW4TaP9AyRuT7A" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d17654187-Reviews-Rosa_Cibo_italiano-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Testaccio è perfetto dopo Aventino e Circo Massimo.</p>
       </div>
     </div>
 
@@ -1059,12 +1495,11 @@
     </div>
   </div>
 
-  <!-- ── GIORNO 4 ── -->
   <div class="day-panel" id="day-3">
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 4</p>
-        <h2 class="day-title">Lunedì 29 Giugno<br><em>Musei Vaticani &amp; Prati</em></h2>
+        <h2 class="day-title">Lunedì 29 Giugno<br><em>Villa Borghese &amp; Castel Sant'Angelo</em></h2>
       </div>
       <span class="day-completion" id="day-3-comp"></span>
     </div>
@@ -1072,96 +1507,199 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Cappella Sistina</span>
+        <span class="time-label-text">Mattina · Arte e Parco</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione in hotel.</p>
+          <p class="activity-text">Colazione.</p>
         </div>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">09:00</p>
-          <p class="activity-text">Musei Vaticani — orari estivi 8:00–20:00. Biglietto online ~25 € (include Cappella Sistina e Stanze di Raffaello). Durata visita: 2–3 ore. ⚠️ Il 29 giugno (Santi Pietro e Paolo) il museo è aperto.</p>
+          <p class="activity-time">09:30</p>
+          <p class="activity-text">Partenza da Lepanto e passeggiata verso il Pincio e il parco di Villa Borghese.</p>
         </div>
-        <span class="activity-badge badge-ticket">~25 €/p</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">12:30</p>
-          <p class="activity-text">Uscita dal museo, passeggiata nel Cortile della Pigna. Spostamento verso la Basilica di San Pietro — eventuale salita alla Cupola al tramonto.</p>
+          <p class="activity-time">10:00 – 12:00</p>
+          <p class="activity-text">Galleria Borghese — prenotazione obbligatoria, ~34–40 € per 2 persone. Opere di Bernini, Caravaggio, Canova e Raffaello.</p>
+        </div>
+        <span class="activity-badge badge-ticket">~34-40 €/2p</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:15</p>
+          <p class="activity-text">Passeggiata nel parco di Villa Borghese, laghetto e Terrazza del Pincio con vista panoramica su Roma.</p>
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">13:30</p>
-          <p class="activity-text">Pranzo leggero nei dintorni — pranzo veloce in Prati o in zona Vaticano.</p>
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🍰 Colazione / Dolce</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Pompi</span>
         </div>
-        <span class="activity-badge badge-food">Pranzo</span>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Albalonga 7 B, 00183 Roma — tiramisù iconico
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/KTSg2oWvwujSiDJV7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1025826-Reviews-Pompi-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Pranzo · Villa Borghese-Parioli</span>
+      </div>
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥇 Pranzo</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Osteria del Rione</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Basento 20, 00198 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/oF7G3KcrwsjZ2YDz7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2691458-Reviews-Osteria_del_Rione-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Castel Sant'Angelo</span>
+        <span class="time-label-text">Pomeriggio · Verso il Vaticano</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">15:00</p>
-          <p class="activity-text">Castel Sant'Angelo — dal Vaticano a piedi via ponte (~15 min). Biglietto ~15 €. Giro interno tra i camminamenti e terrazza panoramica sul Tevere e il centro storico.</p>
+          <p class="activity-text">Passeggiata lungo Via del Corso fino a Piazza del Popolo e ritorno verso il Vaticano.</p>
+        </div>
+      </div>
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🍕 Merenda</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Pizza e Mozzarella</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via del Piè di Marmo, 32, 00186 Roma — perfetta durante la passeggiata nel centro storico
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/z4cFX3uviEhJ59Ku6" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4437197-Reviews-Pizza_e_Mozzarella-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">16:30</p>
+          <p class="activity-text">Castel Sant'Angelo — visita interna e terrazza panoramica. Biglietto ~15 € p.p.</p>
         </div>
         <span class="activity-badge badge-ticket">~15 €/p</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">17:00</p>
-          <p class="activity-text">Passeggiata su Via Cola di Rienzo — shopping nel cuore di Prati. Oppure relax in hotel prima della cena.</p>
+          <p class="activity-time">18:30</p>
+          <p class="activity-text">Passeggiata serale sul Lungotevere e sul Ponte Sant'Angelo.</p>
         </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
-        <div class="time-label-icon evening">🌙</div>
-        <span class="time-label-text">Sera · Vista su San Pietro</span>
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Cena Finale del Viaggio · Prati / Borgo Pio</span>
       </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">18:00</p>
-          <p class="activity-text">⚠️ Festività Pietro e Paolo: alle 18:00 il Papa tiene la Messa in Piazza San Pietro. Possibili chiusure e assembramenti — pianificare di conseguenza.</p>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥇 Cena finale</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Caligola Osteria Sincera</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Leone IV 123, 00192 Roma — a pochi minuti dall'alloggio
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/mDcKgjj7dajr5q1z5" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d25099605-Reviews-Caligola_Osteria_Sincera-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
         </div>
       </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">19:30</p>
-          <p class="activity-text">Cena nei pressi del Vaticano o borgo — Osteria del Fico, Osteria dell'Orologio. Vista serale di San Pietro illuminata.</p>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🌹 Alternativa romantica</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Osteria Navona</span>
         </div>
-        <span class="activity-badge badge-food">Cena</span>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via di Santa Maria dell'Anima, 18, 00186 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/WYbk2E4DmugZ9xan7" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d26336069-Reviews-Osteria_Navona-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Vista sulla Basilica di San Pietro illuminata.</p>
       </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Prenotare i Musei Vaticani su tickets.museivaticani.va — evita code di ore</li>
-        <li>Il 29 giugno è festa dei Santi Pietro e Paolo: considera la Messa papale come esperienza unica</li>
-        <li>Dalla terrazza del Castel Sant'Angelo: uno dei panorami più belli di Roma</li>
+        <li>Galleria Borghese: prenotazione obbligatoria con largo anticipo — slot orari limitati</li>
+        <li>⚠️ Il 29 giugno è festa dei Santi Pietro e Paolo: alle 18:00 il Papa tiene Messa in Piazza San Pietro — possibili chiusure/assembramenti se passate di lì</li>
+        <li>Dalla terrazza del Castel Sant'Angelo: uno dei panorami più belli di Roma al tramonto</li>
       </ul>
     </div>
   </div>
 
-  <!-- ── GIORNO 5 ── -->
   <div class="day-panel" id="day-4">
     <div class="day-header">
       <div>
@@ -1194,8 +1732,58 @@
 
     <div class="time-section">
       <div class="time-label">
-        <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Arrivederci Roma</span>
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Pranzo Veloce · Centro</span>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍕 Opzione 1</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Pizzeria Romana Rione Ponte</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via del Governo Vecchio 10, Rione Ponte, 00186 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/VCQiV6g7ktQmnkvV6" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d10525827-Reviews-Pizzeria_Romana_Rione_Ponte-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🍝 Opzione 2</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Osteria da Fortunata – Baullari</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Dei Baullari 112, 00186 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/2gyYfyLtXCpr4AyG9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d24969655-Reviews-Osteria_da_Fortunata_Baullari-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Solo se riuscite a pranzare entro le 12:30.</p>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌙</div>
+        <span class="time-label-text">Partenza</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
@@ -1219,15 +1807,14 @@
       <h4>⚑ Consigli per oggi</h4>
       <ul>
         <li>Arrivare a Tiburtina con almeno 30 minuti di anticipo</li>
-        <li>Ultimi souvenir: i "nasoni" hanno le monete romane — scherzo! Ultimo gelato però è d'obbligo</li>
-        <li>Largo Argentina è vicino al centro e ottimo per un ultimo colpo d'occhio sulle rovine romane</li>
+        <li>Se pranzate da Fortunata, tenete d'occhio l'orario per non perdere il trasferimento</li>
+        <li>Ultimo gelato d'obbligo prima di partire!</li>
       </ul>
     </div>
   </div>
 
 </main>
 
-<!-- BUDGET -->
 <section class="budget-section">
   <h3 class="budget-title">💶 Budget Stimato · 2 Persone</h3>
   <div class="budget-grid">
@@ -1242,11 +1829,6 @@
       <p class="budget-card-detail">BIT + tessere 72h</p>
     </div>
     <div class="budget-card">
-      <p class="budget-card-label">Musei Vaticani</p>
-      <p class="budget-card-amount">~50 €</p>
-      <p class="budget-card-detail">25 € × 2 persone</p>
-    </div>
-    <div class="budget-card">
       <p class="budget-card-label">Colosseo + Foro</p>
       <p class="budget-card-amount">~36 €</p>
       <p class="budget-card-detail">18 € × 2 persone</p>
@@ -1255,6 +1837,11 @@
       <p class="budget-card-label">Castel Sant'Angelo</p>
       <p class="budget-card-amount">~30 €</p>
       <p class="budget-card-detail">15 € × 2 persone</p>
+    </div>
+    <div class="budget-card">
+      <p class="budget-card-label">Galleria Borghese</p>
+      <p class="budget-card-amount">~37 €</p>
+      <p class="budget-card-detail">34–40 € per 2 persone</p>
     </div>
     <div class="budget-card">
       <p class="budget-card-label">Pasti (5 giorni)</p>
@@ -1271,8 +1858,233 @@
         <p class="budget-card-label">Totale indicativo</p>
         <p class="budget-card-detail">I prezzi sono orientativi</p>
       </div>
-      <p class="budget-card-amount">~696 €</p>
+      <p class="budget-card-amount">~646 €</p>
     </div>
+  </div>
+</section>
+
+<section class="directory-section">
+  <h3 class="directory-title">📖 Tutti i Ristoranti</h3>
+  <p class="directory-subtitle">Cerca rapidamente un locale per nome o zona</p>
+  <input type="text" class="directory-search" id="directorySearch" placeholder="🔍 Cerca un ristorante..." onkeyup="filterDirectory()">
+  <div class="directory-grid" id="directoryGrid">
+
+    <div class="directory-card" data-name="supplì via di san francesco a ripa trastevere">
+      <p class="directory-card-name">Supplì</p>
+      <p class="directory-card-addr">Via di San Francesco a Ripa, 137, Trastevere</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/1Kw5M3MphpptJETW9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4107856-Reviews-Suppli-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="pompi dolci villa borghese">
+      <p class="directory-card-name">Pompi (Dolci)</p>
+      <p class="directory-card-addr">Via Albalonga 7 B</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/KTSg2oWvwujSiDJV7" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1025826-Reviews-Pompi-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="pizza e mozzarella via piè di marmo centro">
+      <p class="directory-card-name">Pizza e Mozzarella</p>
+      <p class="directory-card-addr">Via del Piè di Marmo, 32</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/z4cFX3uviEhJ59Ku6" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4437197-Reviews-Pizza_e_Mozzarella-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="lemongrass gelato via ottaviano prati">
+      <p class="directory-card-name">Lemongrass Gelato</p>
+      <p class="directory-card-addr">Via Ottaviano, 29, Prati</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/ovEyzXWbVENf4r5Y8" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4150915-Reviews-Lemongrass_Gelato-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="la gelateria frigidarium via governo vecchio centro storico">
+      <p class="directory-card-name">La Gelateria Frigidarium</p>
+      <p class="directory-card-addr">Via del Governo Vecchio 112</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/Yvn2qWBSWYD7iMuQ8" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1536028-Reviews-La_Gelateria_Frigidarium-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="su e giu cucina romana via tacito prati cola di rienzo">
+      <p class="directory-card-name">Su &amp; Giu Cucina Romana</p>
+      <p class="directory-card-addr">Via Tacito 42, Prati</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/WiwjaRVViKXrxnLx5" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2320420-Reviews-Su_Giu_Cucina_Romana-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="trattoria della stampa via maroniti monti">
+      <p class="directory-card-name">Trattoria della Stampa</p>
+      <p class="directory-card-addr">32 Via dei Maroniti</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/7y1ZB19rgRK95BaGA" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2092218-Reviews-Trattoria_della_Stampa-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="hosteria romana via boccaccio rasella monti">
+      <p class="directory-card-name">Hosteria Romana</p>
+      <p class="directory-card-addr">Via del Boccaccio, 1 (ang. Via Rasella)</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/eQdLmfAcDFVemE1m7" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1035927-Reviews-Hosteria_Romana-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="osteria macondo via dei mille">
+      <p class="directory-card-name">Osteria Macondo</p>
+      <p class="directory-card-addr">Via Dei Mille, 10</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/3H5CaMdeCFy9dqr47" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d27510302-Reviews-Osteria_Macondo-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="trattoria sapori di casa viale università">
+      <p class="directory-card-name">Trattoria Sapori di Casa</p>
+      <p class="directory-card-addr">Viale dell'Università 17-19</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/657p755Ae1xLLt7TA" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2648146-Reviews-Trattoria_Sapori_di_Casa-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="rosa cibo italiano testaccio mercato">
+      <p class="directory-card-name">Rosa - Cibo Italiano</p>
+      <p class="directory-card-addr">Via Aldo Manuzio 66C, Testaccio</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/xNeUW4TaP9AyRuT7A" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d17654187-Reviews-Rosa_Cibo_italiano-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="trattoria dal cordaro piazzale portuense trastevere">
+      <p class="directory-card-name">Trattoria Dal Cordaro</p>
+      <p class="directory-card-addr">Piazzale Portuense 4</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/WMMfZn1iVtrBT7HL9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d953343-Reviews-Trattoria_Dal_Cordaro_Roma-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="osteria da fortunata baullari centro campo de fiori">
+      <p class="directory-card-name">Osteria da Fortunata – Baullari</p>
+      <p class="directory-card-addr">Via Dei Baullari 112</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/2gyYfyLtXCpr4AyG9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d24969655-Reviews-Osteria_da_Fortunata_Baullari-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="osteria la sol fa via germano sommeiller">
+      <p class="directory-card-name">Osteria La Sol Fa</p>
+      <p class="directory-card-addr">Via Germano Sommeiller 19</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/pNwGHqvzFaTxSSfd9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1547754-Reviews-Osteria_La_Sol_Fa-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="tonnarello via della paglia trastevere">
+      <p class="directory-card-name">Tonnarello</p>
+      <p class="directory-card-addr">Via Della Paglia 1,2,3, Trastevere</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/AreyYpqsC9QKJaSB9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d13443832-Reviews-Tonnarello-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="ai balestrari prati piazza unita">
+      <p class="directory-card-name">Ai Balestrari in Prati</p>
+      <p class="directory-card-addr">Piazza Dell'Unità 27, Prati</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/B33zR5EGtCDXucaf9" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2440675-Reviews-Ai_Balestrari_in_Prati-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="osteria navona via santa maria dell'anima centro">
+      <p class="directory-card-name">Osteria Navona</p>
+      <p class="directory-card-addr">Via di Santa Maria dell'Anima, 18</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/WYbk2E4DmugZ9xan7" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d26336069-Reviews-Osteria_Navona-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="caligola osteria sincera via leone iv prati">
+      <p class="directory-card-name">Caligola Osteria Sincera</p>
+      <p class="directory-card-addr">Via Leone IV 123, Prati</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/mDcKgjj7dajr5q1z5" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d25099605-Reviews-Caligola_Osteria_Sincera-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="nannarella piazza san calisto trastevere">
+      <p class="directory-card-name">Nannarella</p>
+      <p class="directory-card-addr">Piazza Di San Calisto 7/A-8, Trastevere</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/9gz7upp9b884jkdr6" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d14173461-Reviews-Nannarella-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="ristoro della salute piazza colosseo">
+      <p class="directory-card-name">Ristoro Della Salute</p>
+      <p class="directory-card-addr">Piazza del Colosseo 2A</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="pizza zaza piazza sant'eustachio pantheon">
+      <p class="directory-card-name">Pizza Zaza</p>
+      <p class="directory-card-addr">Piazza Sant'Eustachio 49</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/C9MVBRKHneGxAJUN8" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1063124-Reviews-Pizza_Zaza-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="gelateria la romana via venti settembre piave">
+      <p class="directory-card-name">Gelateria La Romana dal 1947</p>
+      <p class="directory-card-addr">Via Venti Settembre 60</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/nLEPEMeCnYa8bN127" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4492728-Reviews-Gelateria_La_Romana-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="osteria del rione via basento villa borghese parioli">
+      <p class="directory-card-name">Osteria del Rione</p>
+      <p class="directory-card-addr">Via Basento 20</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/oF7G3KcrwsjZ2YDz7" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2691458-Reviews-Osteria_del_Rione-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
+    <div class="directory-card" data-name="pizzeria romana rione ponte via governo vecchio">
+      <p class="directory-card-name">Pizzeria Romana Rione Ponte</p>
+      <p class="directory-card-addr">Via del Governo Vecchio 10, Rione Ponte</p>
+      <div class="directory-card-links">
+        <a class="link-btn link-maps" href="https://maps.app.goo.gl/VCQiV6g7ktQmnkvV6" target="_blank" rel="noopener">Maps</a>
+        <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d10525827-Reviews-Pizzeria_Romana_Rione_Ponte-Rome_Lazio.html" target="_blank" rel="noopener">TripAdvisor</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1285,7 +2097,6 @@
 <script>
   const STORAGE_KEY = 'roma2026_checked';
 
-  // Load saved state
   function loadState() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
@@ -1296,12 +2107,10 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }
 
-  // Assign unique IDs to all activities
   document.querySelectorAll('.activity').forEach((el, i) => {
     el.dataset.id = 'act_' + i;
   });
 
-  // Restore checked state
   const state = loadState();
   document.querySelectorAll('.activity').forEach(el => {
     if (state[el.dataset.id]) {
@@ -1325,7 +2134,6 @@
     document.getElementById('progress-bar').style.width = pct + '%';
     document.getElementById('progress-text').textContent = `${done.length} di ${all.length} attività completate`;
 
-    // Update per-day completion labels + tab dots
     const tabs = document.querySelectorAll('.day-tab');
     for (let d = 0; d < 5; d++) {
       const panel = document.getElementById('day-' + d);
@@ -1334,7 +2142,6 @@
       const comp = document.getElementById('day-' + d + '-comp');
       if (comp) comp.textContent = `${dayDone.length}/${dayAll.length} completate`;
 
-      // Add/remove gold dot on tab
       const tab = tabs[d];
       const existingDot = tab.querySelector('.done-dot');
       if (dayDone.length > 0 && dayDone.length === dayAll.length) {
@@ -1351,6 +2158,14 @@
     });
     document.querySelectorAll('.day-tab').forEach((t, i) => {
       t.classList.toggle('active', i === idx);
+    });
+  }
+
+  function filterDirectory() {
+    const query = document.getElementById('directorySearch').value.toLowerCase();
+    document.querySelectorAll('.directory-card').forEach(card => {
+      const name = card.dataset.name;
+      card.style.display = name.includes(query) ? '' : 'none';
     });
   }
 
