@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roma 2026 — Il Nostro Viaggio</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
 <style>
   :root {
     --cream: #f5f0e8;
@@ -670,6 +671,140 @@
     top: 1px;
   }
 
+  /* ── MAP SECTION ── */
+  .map-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 2rem 3rem;
+  }
+
+  .map-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--warm-dark);
+    margin-bottom: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--stone);
+  }
+
+  .map-subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .map-day-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+  }
+
+  .map-day-filters::-webkit-scrollbar { display: none; }
+
+  .map-filter-btn {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border: 1.5px solid var(--stone);
+    background: white;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .map-filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--dark);
+  }
+
+  .map-filter-btn.active {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: white;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 480px;
+    border-radius: 16px;
+    border: 1.5px solid var(--stone);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  #leafletMap {
+    width: 100%;
+    height: 100%;
+  }
+
+  .map-legend {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+
+  .map-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .map-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Custom popup styling */
+  .leaflet-popup-content-wrapper {
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .leaflet-popup-content {
+    margin: 0.8rem 1rem;
+    min-width: 180px;
+  }
+
+  .popup-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--warm-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .popup-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .popup-link {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #1a73e8;
+    text-decoration: none;
+  }
+
+  .popup-link:hover {
+    text-decoration: underline;
+  }
+
   .budget-section {
     max-width: 900px;
     margin: 0 auto;
@@ -801,6 +936,199 @@
     gap: 0.5rem;
   }
 
+  /* ── EXPENSES SECTION ── */
+  .expenses-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 2rem 3rem;
+  }
+
+  .expenses-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--warm-dark);
+    margin-bottom: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--stone);
+  }
+
+  .expenses-subtitle {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .expenses-totals {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .expense-total-card {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 12px;
+    padding: 1.1rem;
+    text-align: center;
+  }
+
+  .expense-total-card.grand-total {
+    background: var(--warm-dark);
+    border-color: var(--warm-dark);
+  }
+
+  .expense-total-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .expense-total-card.grand-total .expense-total-name {
+    color: var(--gold);
+  }
+
+  .expense-total-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--warm-dark);
+  }
+
+  .expense-total-card.grand-total .expense-total-amount {
+    color: var(--cream);
+  }
+
+  .expense-add-form {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .expense-add-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .expense-input, .expense-select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1.5px solid var(--stone);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+    color: var(--dark);
+  }
+
+  .expense-input:focus, .expense-select:focus {
+    border-color: var(--gold);
+  }
+
+  .expense-add-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .expense-add-btn:hover {
+    background: #a8501f;
+  }
+
+  .expenses-table-wrap {
+    background: white;
+    border: 1.5px solid var(--stone);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .expenses-table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 32px;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    background: var(--sand);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .expense-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 32px;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid var(--stone);
+    align-items: center;
+    font-size: 0.85rem;
+  }
+
+  .expense-row-desc {
+    color: var(--dark);
+    overflow-wrap: break-word;
+  }
+
+  .expense-row-amount {
+    font-weight: 600;
+    color: var(--warm-dark);
+  }
+
+  .expense-row-amount.empty {
+    color: var(--stone);
+    font-weight: 400;
+  }
+
+  .expense-delete-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #fdeae5;
+    color: var(--terracotta);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .expense-delete-btn:hover {
+    background: var(--terracotta);
+    color: white;
+  }
+
+  .expenses-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .expenses-totals { grid-template-columns: 1fr; gap: 0.6rem; }
+    .expense-add-row { grid-template-columns: 1fr; }
+    .expenses-table-header, .expense-row { grid-template-columns: 1.5fr 1fr 1fr 28px; font-size: 0.78rem; }
+  }
+
   .footer-deco {
     text-align: center;
     padding: 2rem;
@@ -889,7 +1217,7 @@
       <div class="hero-divider"></div>
       <div class="hero-info-item">
         <p class="label">Budget</p>
-        <p class="value">~646 € (2 pax)</p>
+        <p class="value">450-600 € (2 pax)</p>
       </div>
     </div>
   </div>
@@ -931,8 +1259,8 @@
 
 <nav class="day-nav">
   <button class="day-tab active" onclick="showDay(0)">Ven 26/6 · Arrivo</button>
-  <button class="day-tab" onclick="showDay(1)">Sab 27/6 · Colosseo</button>
-  <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Trastevere</button>
+  <button class="day-tab" onclick="showDay(1)">Sab 27/6 · Centro Storico</button>
+  <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Colosseo</button>
   <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Borghese</button>
   <button class="day-tab" onclick="showDay(4)">Mar 30/6 · Partenza</button>
 </nav>
@@ -943,7 +1271,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 1</p>
-        <h2 class="day-title">Venerdì 26 Giugno<br><em>Foggia → Roma</em></h2>
+        <h2 class="day-title">Venerdì 26 Giugno<br><em>Foggia → Roma, Vaticano e Prati</em></h2>
       </div>
       <span class="day-completion" id="day-0-comp"></span>
     </div>
@@ -965,22 +1293,22 @@
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">13:00</p>
-          <p class="activity-text">Arrivo a Roma Tiburtina. Prendere treno FR2 → Termini (≈6 min), poi Metro A → Lepanto (4 fermate). Check-in hotel e deposito bagagli.</p>
+          <p class="activity-text">Arrivo a Roma Stazione Tiburtina. Prendere la metro B fino a Termini e poi la metro A fino a Lepanto. Arrivo all'alloggio, deposito bagagli e check-in.</p>
         </div>
-        <span class="activity-badge badge-transport">Metro A</span>
+        <span class="activity-badge badge-transport">Metro B + A</span>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Vaticano</span>
+        <span class="time-label-text">Pomeriggio · San Pietro</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">14:00</p>
-          <p class="activity-text">Pranzo veloce in zona Vaticano — pizza al taglio o trattoria tipica.</p>
+          <p class="activity-text">Pranzo veloce in zona Vaticano o Prati, senza allontanarsi troppo dall'alloggio.</p>
         </div>
         <span class="activity-badge badge-food">Pranzo</span>
       </div>
@@ -988,15 +1316,22 @@
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">15:00</p>
-          <p class="activity-text">Basilica di San Pietro — ingresso gratuito (spalle e ginocchia coperte). Apertura estiva 7:00–19:10. Eventuale salita alla Cupola (~10 € con ascensore). Tempo stimato: 1–2 ore.</p>
+          <p class="activity-text">Passeggiata a Piazza San Pietro. La piazza, il colonnato e la facciata della Basilica sono una perfetta introduzione al viaggio.</p>
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
+          <p class="activity-time">16:00</p>
+          <p class="activity-text">Borgo Pio e Via della Conciliazione. Percorso completamente a piedi, perfetto per fotografie e una prima immersione nella zona Vaticana.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
           <p class="activity-time">17:30</p>
-          <p class="activity-text">Passeggiata a Piazza del Risorgimento e vie limitrofe di Prati. Oppure riposo in hotel.</p>
+          <p class="activity-text">Rientro verso Prati oppure passeggiata sul Lungotevere, in base alla stanchezza dopo il viaggio.</p>
         </div>
       </div>
     </div>
@@ -1008,13 +1343,13 @@
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🍦 Pranzo (appena arrivati)</span>
+        <span class="restaurant-meal-tag">🍦 Pranzo</span>
         <div class="restaurant-header">
           <span class="restaurant-name">Lemongrass Gelato</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Ottaviano, 29, 00192 Roma — a 5 minuti dall'alloggio
+          Via Ottaviano, 29, 00192 Roma — ottimo appena arrivati, a pochi minuti dall'alloggio
         </p>
         <div class="restaurant-links">
           <a class="link-btn link-maps" href="https://maps.app.goo.gl/ovEyzXWbVENf4r5Y8" target="_blank" rel="noopener">
@@ -1029,9 +1364,9 @@
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🍝 Cena</span>
+        <span class="restaurant-meal-tag">🥇 Cena</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Su & Giu Cucina Romana</span>
+          <span class="restaurant-name"><span class="rank">1°</span>Su & Giu Cucina Romana</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1047,7 +1382,27 @@
             TripAdvisor
           </a>
         </div>
-        <p class="restaurant-note">Alternativa: 🍕 Ai Balestrari in Prati</p>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">2°</span>Ai Balestrari in Prati</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Piazza Dell'Unità 27, 00191 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/B33zR5EGtCDXucaf9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2440675-Reviews-Ai_Balestrari_in_Prati-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
       </div>
 
       <div class="restaurant-card">
@@ -1074,8 +1429,15 @@
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">Sera</p>
-          <p class="activity-text">Riposo dopo il primo giorno di viaggio.</p>
+          <p class="activity-time">19:30</p>
+          <p class="activity-text">Cena tipica in zona Prati, preferibilmente vicino all'alloggio.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">22:00</p>
+          <p class="activity-text">Rientro e riposo.</p>
         </div>
       </div>
     </div>
@@ -1083,8 +1445,8 @@
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Abbigliamento adatto alla basilica: niente spalle scoperte né pantaloni corti</li>
-        <li>La Cupola si affronta meglio a fine pomeriggio con luce calda</li>
+        <li>Concentratevi su una sola zona al giorno per ridurre i tempi di spostamento</li>
+        <li>Il primo giorno è perfetto per ambientarsi senza fretta dopo il viaggio</li>
         <li>I "nasoni" (fontanelli) sono gratuiti — porta una borraccia</li>
       </ul>
     </div>
@@ -1094,7 +1456,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 2</p>
-        <h2 class="day-title">Sabato 27 Giugno<br><em>Colosseo &amp; Centro Storico</em></h2>
+        <h2 class="day-title">Sabato 27 Giugno<br><em>Cupola di San Pietro &amp; Centro Storico</em></h2>
       </div>
       <span class="day-completion" id="day-1-comp"></span>
     </div>
@@ -1102,56 +1464,71 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Il Cuore Antico</span>
+        <span class="time-label-text">Mattina · Il Vaticano</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione in hotel o caffè rapido.</p>
+          <p class="activity-time">08:00</p>
+          <p class="activity-text">Partenza dall'alloggio per Piazza San Pietro. La mattina va dedicata al Vaticano, così da evitare le ore più affollate e il caldo del pomeriggio.</p>
         </div>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">09:00</p>
-          <p class="activity-text">Colosseo — biglietto integrato Colosseo+Foro+Palatino (~18 € p.p., prenotato online). Da Lepanto: Metro A → Termini, Metro B → Colosseo (3 min). Visita 2–3 ore con audioguida.</p>
+          <p class="activity-time">08:15</p>
+          <p class="activity-text">Salita alla Cupola di San Pietro. La visita richiede un po' di energia, ma il panorama dall'alto ripaga pienamente la fatica.</p>
         </div>
-        <span class="activity-badge badge-ticket">~18 €/p</span>
+        <span class="activity-badge badge-ticket">20-30 €/2p</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">12:00</p>
-          <p class="activity-text">Foro Romano e Palatino — incluso nel biglietto. Percorso tra le rovine storiche. Durata circa 2 ore.</p>
+          <p class="activity-time">09:30</p>
+          <p class="activity-text">Visita della Basilica di San Pietro — con calma la navata centrale, la Pietà di Michelangelo, il Baldacchino del Bernini e gli spazi principali della basilica.</p>
         </div>
-        <span class="activity-badge badge-free">Incluso</span>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">11:30</p>
+          <p class="activity-text">Uscita dalla zona vaticana e passeggiata fino a Castel Sant'Angelo. Il tratto è breve e piacevole, con una vista continua sul Tevere e sul Vaticano.</p>
+        </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo · Rione Monti</span>
+        <span class="time-label-text">Pranzo · Prati / Castel Sant'Angelo</span>
       </div>
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🍝 Pranzo (davanti al Colosseo)</span>
+        <span class="restaurant-meal-tag">🍕 Pranzo</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Ristoro Della Salute</span>
+          <span class="restaurant-name">Ai Balestrari in Prati</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Piazza del Colosseo 2A, 00184 Roma
+          Piazza Dell'Unità 27, 00191 Roma
         </p>
         <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/B33zR5EGtCDXucaf9" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
           </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2440675-Reviews-Ai_Balestrari_in_Prati-Rome_Lazio.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
             TripAdvisor
           </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:30</p>
+          <p class="activity-text">Pranzo in zona Prati o nei dintorni di Castel Sant'Angelo.</p>
         </div>
       </div>
     </div>
@@ -1159,48 +1536,42 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Le Piazze Eterne</span>
+        <span class="time-label-text">Pomeriggio · Centro Storico</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">15:00</p>
-          <p class="activity-text">Piazza Venezia e Altare della Patria, poi Via del Corso. Sosta a Piazza di Spagna con Scalinata di Trinità dei Monti e Fontana della Barcaccia.</p>
-        </div>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">16:00</p>
-          <p class="activity-text">Pantheon — visita interna (aperto 9:00–19:00). Poi Piazza Navona: ammirare la Fontana dei Quattro Fiumi del Bernini.</p>
-        </div>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">17:30</p>
-          <p class="activity-text">Fontana di Trevi — lanciare la monetina per assicurarsi il ritorno a Roma! Foto ricordo nel tardo pomeriggio con luce dorata.</p>
+          <p class="activity-time">14:00</p>
+          <p class="activity-text">Passeggiata nel Centro Storico: Piazza Navona, Pantheon, Fontana di Trevi, Piazza di Spagna e Via Condotti. Tutto si svolge quasi interamente a piedi, seguendo un percorso molto lineare.</p>
         </div>
       </div>
 
       <div class="restaurant-card" style="margin-top:1rem">
-        <span class="restaurant-meal-tag">🍨 Merenda / Dolce</span>
+        <span class="restaurant-meal-tag">🍨 Merenda / Dolci</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Gelateria La Romana dal 1947</span>
+          <span class="restaurant-name">La Gelateria Frigidarium</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Venti Settembre 60 (incrocio Via Piave), 00184 Roma
+          Via del Governo Vecchio 112, 00186 Roma
         </p>
         <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/nLEPEMeCnYa8bN127" target="_blank" rel="noopener">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/Yvn2qWBSWYD7iMuQ8" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
           </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4492728-Reviews-Gelateria_La_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1536028-Reviews-La_Gelateria_Frigidarium-Rome_Lazio.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
             TripAdvisor
           </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">18:45</p>
+          <p class="activity-text">Gelato o dolce in zona centro prima della cena.</p>
         </div>
       </div>
     </div>
@@ -1208,7 +1579,7 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Cena · Zona Monti</span>
+        <span class="time-label-text">Cena · Centro / Prati</span>
       </div>
 
       <div class="restaurant-card">
@@ -1251,14 +1622,14 @@
             TripAdvisor
           </a>
         </div>
-        <p class="restaurant-note">Entrambe perfette dopo Fontana di Trevi e Piazza di Spagna.</p>
+        <p class="restaurant-note">Entrambe vicine a Trevi/Barberini, comode per la cena di fine giornata.</p>
       </div>
 
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">19:30</p>
-          <p class="activity-text">Rientro in hotel (Metro A da Barberini o Spagna) dopo cena.</p>
+          <p class="activity-time">20:00</p>
+          <p class="activity-text">Cena in centro o rientro a Prati, secondo l'energia rimasta.</p>
         </div>
       </div>
     </div>
@@ -1266,9 +1637,9 @@
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Biglietti Colosseo: prenotare su ticketing.colosseo.it per evitare file</li>
-        <li>Dalla metro Barberini si raggiunge facilmente sia Trevi che Piazza di Spagna</li>
-        <li>La Fontana di Trevi è meno affollata nelle ore serali</li>
+        <li>Prenotare in anticipo la Cupola di San Pietro per evitare lunghe attese</li>
+        <li>La mattina presto è il momento migliore per evitare caldo e folla in Vaticano</li>
+        <li>Per Fontana di Trevi e Piazza di Spagna, meglio il tardo pomeriggio o la sera</li>
       </ul>
     </div>
   </div>
@@ -1277,7 +1648,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 3</p>
-        <h2 class="day-title">Domenica 28 Giugno<br><em>Trastevere &amp; Gianicolo</em></h2>
+        <h2 class="day-title">Domenica 28 Giugno<br><em>Roma Antica</em></h2>
       </div>
       <span class="day-completion" id="day-2-comp"></span>
     </div>
@@ -1285,132 +1656,54 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Il Colle e il Quartiere</span>
+        <span class="time-label-text">Mattina · Il Cuore Antico</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">08:30</p>
+          <p class="activity-text">Colazione e partenza per il Colosseo. Conviene prendere la metro A fino a Termini e poi la metro B fino a Colosseo, oppure camminare se si preferisce iniziare con un percorso più tranquillo.</p>
+        </div>
+        <span class="activity-badge badge-transport">Metro A + B</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">09:00</p>
-          <p class="activity-text">Colazione in hotel.</p>
+          <p class="activity-text">Visita del Colosseo con biglietto prenotato in anticipo.</p>
         </div>
+        <span class="activity-badge badge-ticket">36-40 €/2p</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">10:00</p>
-          <p class="activity-text">Da Lepanto autobus 490/982 fino a Piazza San Giovanni di Dio (Trastevere), poi salita a piedi o bus 12 per il Gianicolo. Panorama mozzafiato su Roma e i suoi sette colli.</p>
+          <p class="activity-time">11:30</p>
+          <p class="activity-text">Proseguimento verso il Foro Romano e il Palatino. La visita è più lenta e panoramica: il percorso archeologico permette di capire la struttura della Roma imperiale.</p>
         </div>
-        <span class="activity-badge badge-transport">Bus</span>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">11:00</p>
-          <p class="activity-text">Discesa a piedi verso Santa Maria in Trastevere — basilica del XIII secolo con splendidi mosaici medievali dorati.</p>
-        </div>
-        <span class="activity-badge badge-free">Gratuito</span>
-      </div>
-
-      <div class="restaurant-card" style="margin-top:1rem">
-        <span class="restaurant-meal-tag">🧆 Spuntino mattutino</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">Supplì</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via di San Francesco a Ripa, 137, 00153 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/1Kw5M3MphpptJETW9" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4107856-Reviews-Suppli-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
-        </div>
+        <span class="activity-badge badge-free">Incluso</span>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo · Trastevere</span>
+        <span class="time-label-text">Pranzo · Vicino al Colosseo</span>
       </div>
-
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
+        <span class="restaurant-meal-tag">🍝 Pranzo</span>
         <div class="restaurant-header">
-          <span class="restaurant-name"><span class="rank">1°</span>Tonnarello</span>
+          <span class="restaurant-name">Ristoro Della Salute</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Della Paglia 1,2,3, 00153 Roma
+          Piazza del Colosseo 2A, 00184 Roma
         </p>
         <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/AreyYpqsC9QKJaSB9" target="_blank" rel="noopener">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
           </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d13443832-Reviews-Tonnarello-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
-        </div>
-      </div>
-
-      <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥈 Alternativa</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name"><span class="rank">2°</span>Nannarella</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Piazza Di San Calisto 7/A-8, 00153 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/9gz7upp9b884jkdr6" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d14173461-Reviews-Nannarella-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
-        </div>
-        <p class="restaurant-note">Sono praticamente uno accanto all'altro!</p>
-      </div>
-    </div>
-
-    <div class="time-section">
-      <div class="time-label">
-        <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Tra Rovine e Vicoli</span>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">14:30</p>
-          <p class="activity-text">Attraversare il Tevere sul Ponte Fabricio: Basilica di Santa Cecilia in Trastevere (cripte e opere). Poi Largo Argentina (tempietti antichi + gattile) e Campo de' Fiori.</p>
-        </div>
-      </div>
-
-      <div class="restaurant-card" style="margin-top:1rem">
-        <span class="restaurant-meal-tag">🍦 Gelato</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">La Gelateria Frigidarium</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via del Governo Vecchio 112, 00186 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/Yvn2qWBSWYD7iMuQ8" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1536028-Reviews-La_Gelateria_Frigidarium-Rome_Lazio.html" target="_blank" rel="noopener">
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
             TripAdvisor
           </a>
@@ -1420,31 +1713,87 @@
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">16:30</p>
-          <p class="activity-text">Circo Massimo (resti del circo antico) e Bocca della Verità — S. Maria in Cosmedin. Alternativa: Aventino per il Giardino degli Aranci e il "Buco di Roma" (San Pietro visibile attraverso una serratura).</p>
+          <p class="activity-time">13:30</p>
+          <p class="activity-text">Pranzo vicino al Colosseo, così da non perdere tempo in spostamenti inutili.</p>
         </div>
-        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+    </div>
+
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon afternoon">☀️</div>
+        <span class="time-label-text">Pomeriggio · Piazza Venezia e Campidoglio</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">18:30</p>
-          <p class="activity-text">Rientro in tram verso l'hotel.</p>
+          <p class="activity-time">15:00</p>
+          <p class="activity-text">Piazza Venezia, Altare della Patria e Campidoglio. Questi luoghi sono vicini tra loro e si inseriscono bene nello stesso pomeriggio.</p>
         </div>
-        <span class="activity-badge badge-transport">Tram</span>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+
+      <div class="restaurant-card" style="margin-top:1rem">
+        <span class="restaurant-meal-tag">🍨 Merenda / Dolce</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Gelateria La Romana dal 1947</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Via Venti Settembre 60, incrocio Via Piave 1, 00184 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/nLEPEMeCnYa8bN127" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4492728-Reviews-Gelateria_La_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:30</p>
+          <p class="activity-text">Tempo libero per fotografie e breve passeggiata nel centro storico romano.</p>
+        </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Cena · Trastevere o Testaccio</span>
+        <span class="time-label-text">Cena · Roma Antica / Testaccio</span>
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
+        <span class="restaurant-meal-tag">🥇 Cena</span>
         <div class="restaurant-header">
-          <span class="restaurant-name"><span class="rank">1°</span>Trattoria Dal Cordaro</span>
+          <span class="restaurant-name">Trattoria della Stampa</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          32 Via dei Maroniti, 00187 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/7y1ZB19rgRK95BaGA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2092218-Reviews-Trattoria_della_Stampa-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa Testaccio</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name">Trattoria Dal Cordaro</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1463,9 +1812,9 @@
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <span class="restaurant-meal-tag">🌹 Alternativa Trastevere</span>
         <div class="restaurant-header">
-          <span class="restaurant-name"><span class="rank">2°</span>Rosa - Cibo Italiano</span>
+          <span class="restaurant-name">Rosa - Cibo Italiano</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1481,16 +1830,23 @@
             TripAdvisor
           </a>
         </div>
-        <p class="restaurant-note">Testaccio è perfetto dopo Aventino e Circo Massimo.</p>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">20:00</p>
+          <p class="activity-text">Cena in zona Roma Antica o Testaccio.</p>
+        </div>
       </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Il "Buco di Roma" all'Aventino: fila, ma vale assolutamente la pena</li>
-        <li>Largo Argentina ha anche un rifugio per gatti — i gatti romani sono una vera istituzione!</li>
-        <li>Trastevere di notte è magica: resta un po' dopo cena tra i vicoli illuminati</li>
+        <li>Prenotare in anticipo i biglietti del Colosseo per evitare lunghe code</li>
+        <li>Foro Romano e Palatino richiedono molta camminata: scarpe comode!</li>
+        <li>Piazza Venezia, Altare della Patria e Campidoglio sono vicinissimi tra loro</li>
       </ul>
     </div>
   </div>
@@ -1499,7 +1855,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 4</p>
-        <h2 class="day-title">Lunedì 29 Giugno<br><em>Villa Borghese &amp; Castel Sant'Angelo</em></h2>
+        <h2 class="day-title">Lunedì 29 Giugno<br><em>Villa Borghese &amp; Gianicolo al Tramonto</em></h2>
       </div>
       <span class="day-completion" id="day-3-comp"></span>
     </div>
@@ -1507,40 +1863,40 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Arte e Parco</span>
+        <span class="time-label-text">Mattina · Villa Borghese</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione.</p>
+          <p class="activity-text">Colazione e partenza verso Villa Borghese. La mattina è perfetta per una passeggiata lenta, con temperature più gradevoli e meno affollamento.</p>
         </div>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">09:30</p>
-          <p class="activity-text">Partenza da Lepanto e passeggiata verso il Pincio e il parco di Villa Borghese.</p>
-        </div>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">10:00 – 12:00</p>
-          <p class="activity-text">Galleria Borghese — prenotazione obbligatoria, ~34–40 € per 2 persone. Opere di Bernini, Caravaggio, Canova e Raffaello.</p>
-        </div>
-        <span class="activity-badge badge-ticket">~34-40 €/2p</span>
-      </div>
-      <div class="activity" onclick="toggle(this)">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">12:15</p>
-          <p class="activity-text">Passeggiata nel parco di Villa Borghese, laghetto e Terrazza del Pincio con vista panoramica su Roma.</p>
+          <p class="activity-time">09:15</p>
+          <p class="activity-text">Villa Borghese, Laghetto e Terrazza del Pincio. Questa area è ideale per una visita rilassata e panoramica, con una delle viste più belle su Roma.</p>
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">11:30</p>
+          <p class="activity-text">Piazza del Popolo, raggiungibile facilmente a piedi dal Pincio.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+    </div>
 
-      <div class="restaurant-card" style="margin-top:1rem">
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon food">🍽️</div>
+        <span class="time-label-text">Pranzo</span>
+      </div>
+
+      <div class="restaurant-card">
         <span class="restaurant-meal-tag">🍰 Colazione / Dolce</span>
         <div class="restaurant-header">
           <span class="restaurant-name">Pompi</span>
@@ -1560,15 +1916,9 @@
           </a>
         </div>
       </div>
-    </div>
 
-    <div class="time-section">
-      <div class="time-label">
-        <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo · Villa Borghese-Parioli</span>
-      </div>
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥇 Pranzo</span>
+        <span class="restaurant-meal-tag">🍝 Pranzo</span>
         <div class="restaurant-header">
           <span class="restaurant-name">Osteria del Rione</span>
         </div>
@@ -1587,19 +1937,28 @@
           </a>
         </div>
       </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:00</p>
+          <p class="activity-text">Pranzo in zona Piazzale Flaminio / Villa Borghese / Prati.</p>
+        </div>
+      </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Verso il Vaticano</span>
+        <span class="time-label-text">Pomeriggio · Castel Sant'Angelo</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">15:00</p>
-          <p class="activity-text">Passeggiata lungo Via del Corso fino a Piazza del Popolo e ritorno verso il Vaticano.</p>
+          <p class="activity-text">Castel Sant'Angelo, Ponte Sant'Angelo e Lungotevere. La passeggiata è piacevole e lineare.</p>
         </div>
+        <span class="activity-badge badge-ticket">30-36 €/2p</span>
       </div>
 
       <div class="restaurant-card" style="margin-top:1rem">
@@ -1609,7 +1968,7 @@
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via del Piè di Marmo, 32, 00186 Roma — perfetta durante la passeggiata nel centro storico
+          Via del Piè di Marmo, 32, 00186 Roma
         </p>
         <div class="restaurant-links">
           <a class="link-btn link-maps" href="https://maps.app.goo.gl/z4cFX3uviEhJ59Ku6" target="_blank" rel="noopener">
@@ -1622,20 +1981,26 @@
           </a>
         </div>
       </div>
+    </div>
 
-      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
-        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
-        <div class="activity-content">
-          <p class="activity-time">16:30</p>
-          <p class="activity-text">Castel Sant'Angelo — visita interna e terrazza panoramica. Biglietto ~15 € p.p.</p>
-        </div>
-        <span class="activity-badge badge-ticket">~15 €/p</span>
+    <div class="time-section">
+      <div class="time-label">
+        <div class="time-label-icon evening">🌅</div>
+        <span class="time-label-text">Tramonto · Gianicolo</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">18:30</p>
-          <p class="activity-text">Passeggiata serale sul Lungotevere e sul Ponte Sant'Angelo.</p>
+          <p class="activity-time">19:45</p>
+          <p class="activity-text">Salita al Gianicolo in anticipo rispetto al tramonto. La luce del tardo pomeriggio è il momento migliore per godersi il panorama su tutta la città.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">20:45</p>
+          <p class="activity-text">🌅 Tramonto sul Gianicolo — Cupola di San Pietro illuminata, panorama notturno. Probabilmente la visita più suggestiva di tutto il viaggio.</p>
         </div>
       </div>
     </div>
@@ -1643,7 +2008,7 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Cena Finale del Viaggio · Prati / Borgo Pio</span>
+        <span class="time-label-text">Cena Finale · Prati</span>
       </div>
 
       <div class="restaurant-card">
@@ -1653,7 +2018,7 @@
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Leone IV 123, 00192 Roma — a pochi minuti dall'alloggio
+          Via Leone IV 123, 00192 Roma
         </p>
         <div class="restaurant-links">
           <a class="link-btn link-maps" href="https://maps.app.goo.gl/mDcKgjj7dajr5q1z5" target="_blank" rel="noopener">
@@ -1686,16 +2051,23 @@
             TripAdvisor
           </a>
         </div>
-        <p class="restaurant-note">Vista sulla Basilica di San Pietro illuminata.</p>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">21:30</p>
+          <p class="activity-text">Cena finale in zona Prati.</p>
+        </div>
       </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Galleria Borghese: prenotazione obbligatoria con largo anticipo — slot orari limitati</li>
-        <li>⚠️ Il 29 giugno è festa dei Santi Pietro e Paolo: alle 18:00 il Papa tiene Messa in Piazza San Pietro — possibili chiusure/assembramenti se passate di lì</li>
-        <li>Dalla terrazza del Castel Sant'Angelo: uno dei panorami più belli di Roma al tramonto</li>
+        <li>Villa Borghese, Pincio e Piazza del Popolo sono praticamente la stessa zona — giornata lineare e poco stancante</li>
+        <li>Arrivare al Gianicolo almeno 30 minuti prima del tramonto per un buon posto</li>
+        <li>Prenotare in anticipo Castel Sant'Angelo per evitare attese</li>
       </ul>
     </div>
   </div>
@@ -1704,7 +2076,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 5</p>
-        <h2 class="day-title">Martedì 30 Giugno<br><em>Mattina Libera &amp; Ritorno</em></h2>
+        <h2 class="day-title">Martedì 30 Giugno<br><em>Prati e Rientro</em></h2>
       </div>
       <span class="day-completion" id="day-4-comp"></span>
     </div>
@@ -1712,20 +2084,20 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Gli Ultimi Sapori di Roma</span>
+        <span class="time-label-text">Mattina · Ultimo Giro</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione e ultimo giro in zona hotel. Possibile visita a Piazza del Popolo e Terrazza del Pincio, o shopping finale in via Cola di Rienzo.</p>
+          <p class="activity-text">Colazione e ultimo giro in zona hotel. Se resta tempo, si può fare una breve passeggiata in Via Cola di Rienzo oppure in Piazza del Popolo senza allontanarsi troppo.</p>
         </div>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">11:30</p>
-          <p class="activity-text">Check-out dall'hotel.</p>
+          <p class="activity-text">Check-out dall'alloggio.</p>
         </div>
       </div>
     </div>
@@ -1733,7 +2105,7 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo Veloce · Centro</span>
+        <span class="time-label-text">Pranzo Veloce</span>
       </div>
 
       <div class="restaurant-card">
@@ -1776,7 +2148,14 @@
             TripAdvisor
           </a>
         </div>
-        <p class="restaurant-note">Solo se riuscite a pranzare entro le 12:30.</p>
+      </div>
+
+      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">12:00</p>
+          <p class="activity-text">Pranzo veloce e trasferimento verso Tiburtina.</p>
+        </div>
       </div>
     </div>
 
@@ -1788,26 +2167,25 @@
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">12:00</p>
-          <p class="activity-text">Trasferimento a Tiburtina — Metro A da Lepanto a Termini, poi treno FR2 per Roma Tiburtina (~15 min totali).</p>
+          <p class="activity-time">14:50</p>
+          <p class="activity-text">Partenza FlixBus per Foggia.</p>
         </div>
-        <span class="activity-badge badge-transport">Metro + FR2</span>
+        <span class="activity-badge badge-transport">FlixBus</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">14:50</p>
-          <p class="activity-text">Partenza FlixBus da Roma Tiburtina → Foggia. Arrivo previsto ore 19:20. Fine del viaggio. Arrivederci, Roma! 🌹</p>
+          <p class="activity-time">19:20</p>
+          <p class="activity-text">Arrivo a Foggia e fine del viaggio. Arrivederci, Roma! 🌹</p>
         </div>
-        <span class="activity-badge badge-transport">FlixBus</span>
       </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Arrivare a Tiburtina con almeno 30 minuti di anticipo</li>
-        <li>Se pranzate da Fortunata, tenete d'occhio l'orario per non perdere il trasferimento</li>
+        <li>Arrivare a Tiburtina con un buon margine di anticipo rispetto alla partenza</li>
+        <li>Ultimo giro a Via Cola di Rienzo per qualche souvenir prima del check-out</li>
         <li>Ultimo gelato d'obbligo prima di partire!</li>
       </ul>
     </div>
@@ -1815,50 +2193,66 @@
 
 </main>
 
+<section class="map-section">
+  <h3 class="map-title">🗺️ Mappa del Viaggio</h3>
+  <p class="map-subtitle">Filtra per giorno o guarda tutte le tappe insieme — clicca su un marker per i dettagli</p>
+
+  <div class="map-day-filters">
+    <button class="map-filter-btn active" onclick="filterMap('all', this)">Tutti i giorni</button>
+    <button class="map-filter-btn" onclick="filterMap(0, this)">Ven 26/6</button>
+    <button class="map-filter-btn" onclick="filterMap(1, this)">Sab 27/6</button>
+    <button class="map-filter-btn" onclick="filterMap(2, this)">Dom 28/6</button>
+    <button class="map-filter-btn" onclick="filterMap(3, this)">Lun 29/6</button>
+    <button class="map-filter-btn" onclick="filterMap(4, this)">Mar 30/6</button>
+  </div>
+
+  <div class="map-container">
+    <div id="leafletMap"></div>
+  </div>
+
+  <div class="map-legend">
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#c4622d"></span> Giorno 1 — Vaticano</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#1565c0"></span> Giorno 2 — Centro Storico</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#2e7d32"></span> Giorno 3 — Colosseo</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#c9a84c"></span> Giorno 4 — Borghese/Gianicolo</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#8a7a6a"></span> Giorno 5 — Partenza</div>
+  </div>
+</section>
+
 <section class="budget-section">
   <h3 class="budget-title">💶 Budget Stimato · 2 Persone</h3>
   <div class="budget-grid">
     <div class="budget-card">
-      <p class="budget-card-label">FlixBus A/R</p>
-      <p class="budget-card-amount">~80 €</p>
-      <p class="budget-card-detail">40 € × 2 persone</p>
+      <p class="budget-card-label">Metro / Bus locali</p>
+      <p class="budget-card-amount">30-40 €</p>
+      <p class="budget-card-detail">BIT 1,50€ o tessere 48h/72h</p>
     </div>
     <div class="budget-card">
-      <p class="budget-card-label">Trasporti locali</p>
-      <p class="budget-card-amount">~30 €</p>
-      <p class="budget-card-detail">BIT + tessere 72h</p>
+      <p class="budget-card-label">Cupola di San Pietro</p>
+      <p class="budget-card-amount">20-30 €</p>
+      <p class="budget-card-detail">Biglietto separato dalla Basilica</p>
     </div>
     <div class="budget-card">
-      <p class="budget-card-label">Colosseo + Foro</p>
-      <p class="budget-card-amount">~36 €</p>
-      <p class="budget-card-detail">18 € × 2 persone</p>
+      <p class="budget-card-label">Colosseo + Foro + Palatino</p>
+      <p class="budget-card-amount">36-40 €</p>
+      <p class="budget-card-detail">Biglietto unico per 2 persone</p>
     </div>
     <div class="budget-card">
       <p class="budget-card-label">Castel Sant'Angelo</p>
-      <p class="budget-card-amount">~30 €</p>
-      <p class="budget-card-detail">15 € × 2 persone</p>
+      <p class="budget-card-amount">30-36 €</p>
+      <p class="budget-card-detail">Ingresso dedicato per 2</p>
     </div>
     <div class="budget-card">
-      <p class="budget-card-label">Galleria Borghese</p>
-      <p class="budget-card-amount">~37 €</p>
-      <p class="budget-card-detail">34–40 € per 2 persone</p>
-    </div>
-    <div class="budget-card">
-      <p class="budget-card-label">Pasti (5 giorni)</p>
-      <p class="budget-card-amount">~450 €</p>
-      <p class="budget-card-detail">Pranzi + cene per 2</p>
-    </div>
-    <div class="budget-card">
-      <p class="budget-card-label">Varie</p>
-      <p class="budget-card-amount">~50 €</p>
-      <p class="budget-card-detail">Souvenir, gelati, ecc.</p>
+      <p class="budget-card-label">Pasti e bevande</p>
+      <p class="budget-card-amount">300-450 €</p>
+      <p class="budget-card-detail">Pranzi + cene per 5 giorni</p>
     </div>
     <div class="budget-card budget-total">
       <div>
         <p class="budget-card-label">Totale indicativo</p>
-        <p class="budget-card-detail">I prezzi sono orientativi</p>
+        <p class="budget-card-detail">Esclusi hotel e FlixBus</p>
       </div>
-      <p class="budget-card-amount">~646 €</p>
+      <p class="budget-card-amount">450-600 €</p>
     </div>
   </div>
 </section>
@@ -2088,6 +2482,50 @@
   </div>
 </section>
 
+<section class="expenses-section">
+  <h3 class="expenses-title">💰 Le Nostre Spese</h3>
+  <p class="expenses-subtitle">Traccia le spese di Vincenzo e Matteo durante il viaggio</p>
+
+  <div class="expenses-totals">
+    <div class="expense-total-card">
+      <p class="expense-total-name">Vincenzo</p>
+      <p class="expense-total-amount" id="totalVincenzo">0,00 €</p>
+    </div>
+    <div class="expense-total-card">
+      <p class="expense-total-name">Matteo</p>
+      <p class="expense-total-amount" id="totalMatteo">0,00 €</p>
+    </div>
+    <div class="expense-total-card grand-total">
+      <p class="expense-total-name">Totale</p>
+      <p class="expense-total-amount" id="totalGrand">0,00 €</p>
+    </div>
+  </div>
+
+  <div class="expense-add-form">
+    <div class="expense-add-row">
+      <input type="text" class="expense-input" id="expenseDesc" placeholder="Descrizione (es. Cena Hosteria Romana)">
+      <input type="number" class="expense-input" id="expenseAmount" placeholder="Importo €" step="0.01" min="0">
+      <select class="expense-select" id="expensePerson">
+        <option value="Vincenzo">Vincenzo</option>
+        <option value="Matteo">Matteo</option>
+      </select>
+    </div>
+    <button class="expense-add-btn" onclick="addExpense()">+ Aggiungi Spesa</button>
+  </div>
+
+  <div class="expenses-table-wrap">
+    <div class="expenses-table-header">
+      <span>Descrizione</span>
+      <span>Persona</span>
+      <span>Importo</span>
+      <span></span>
+    </div>
+    <div id="expensesList">
+      <div class="expenses-empty" id="expensesEmpty">Nessuna spesa registrata — aggiungine una qui sopra!</div>
+    </div>
+  </div>
+</section>
+
 <div class="footer-deco">
   <p class="roma-ornament">✦ · ✦ · ✦</p>
   <p>"Roma, non si finisce mai" — E. M. Forster</p>
@@ -2170,6 +2608,197 @@
   }
 
   updateProgress();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+  // Colori per ciascun giorno
+  const dayColors = {
+    0: '#c4622d', // terracotta - Giorno 1
+    1: '#1565c0', // blu - Giorno 2
+    2: '#2e7d32', // verde - Giorno 3
+    3: '#c9a84c', // oro - Giorno 4
+    4: '#8a7a6a'  // muted - Giorno 5
+  };
+
+  // Tutte le location del viaggio
+  const tripLocations = [
+    // Giorno 1 — Arrivo, Vaticano
+    { day: 0, name: "Basilica di San Pietro", lat: 41.902167, lng: 12.453937, note: "Ingresso gratuito · Piazza San Pietro, Borgo Pio", maps: "https://maps.google.com/?cid=8235940740917056131" },
+    { day: 0, name: "Hotel — Via Germanico 146", lat: 41.9043, lng: 12.4555, note: "Alloggio · Quartiere Prati", maps: "https://maps.app.goo.gl/Q7yK3X2vN1mF8hWp9" },
+
+    // Giorno 2 — Cupola, Castel Sant'Angelo & Centro Storico
+    { day: 1, name: "Cupola di San Pietro", lat: 41.902167, lng: 12.453937, note: "Salita alla Cupola ~10€ a testa", maps: "https://maps.google.com/?cid=8235940740917056131" },
+    { day: 1, name: "Castel Sant'Angelo", lat: 41.903063, lng: 12.466276, note: "Visita esterna, prima del centro storico", maps: "https://maps.google.com/?cid=3921528191373361545" },
+    { day: 1, name: "Piazza Navona", lat: 41.899163, lng: 12.473074, note: "Fontana dei Quattro Fiumi", maps: "https://maps.google.com/?cid=11769916103722152778" },
+    { day: 1, name: "Pantheon", lat: 41.898611, lng: 12.476873, note: "Aperto 9:00-19:00, biglietto richiesto", maps: "https://maps.google.com/?cid=14614574390750662188" },
+    { day: 1, name: "Fontana di Trevi", lat: 41.900933, lng: 12.483313, note: "Lancia la monetina!", maps: "https://maps.google.com/?cid=17759648132674796470" },
+    { day: 1, name: "Piazza di Spagna", lat: 41.905698, lng: 12.482327, note: "Scalinata di Trinità dei Monti, Via Condotti", maps: "https://maps.google.com/?cid=16750812090928552248" },
+
+    // Giorno 3 — Colosseo, Foro, Palatino, Piazza Venezia
+    { day: 2, name: "Colosseo", lat: 41.890210, lng: 12.492231, note: "Biglietto Colosseo+Foro+Palatino ~36-40€ per 2", maps: "https://maps.google.com/?cid=2950359333223072708" },
+    { day: 2, name: "Foro Romano", lat: 41.892091, lng: 12.486438, note: "Incluso nel biglietto del Colosseo", maps: "https://maps.google.com/?cid=18055282783150702054" },
+    { day: 2, name: "Piazza Venezia", lat: 41.895766, lng: 12.482574, note: "Altare della Patria e Campidoglio", maps: "https://maps.google.com/?cid=3542587283635871459" },
+
+    // Giorno 4 — Borghese, Pincio, Popolo, Castel Sant'Angelo, Gianicolo
+    { day: 3, name: "Villa Borghese (parco)", lat: 41.913878, lng: 12.485382, note: "Laghetto e viali panoramici", maps: "https://maps.google.com/?cid=16950841178214075972" },
+    { day: 3, name: "Terrazza del Pincio", lat: 41.912, lng: 12.477, note: "Una delle viste più belle su Roma", maps: "https://maps.google.com/?cid=16950841178214075972" },
+    { day: 3, name: "Piazza del Popolo", lat: 41.910704, lng: 12.476358, note: "Raggiungibile a piedi dal Pincio", maps: "https://maps.google.com/?cid=4895025766821938000" },
+    { day: 3, name: "Castel Sant'Angelo", lat: 41.903063, lng: 12.466276, note: "Ponte Sant'Angelo e Lungotevere ~30-36€ per 2", maps: "https://maps.google.com/?cid=3921528191373361545" },
+    { day: 3, name: "Gianicolo Belvedere", lat: 41.891563, lng: 12.461105, note: "Tramonto + Cupola illuminata — il momento più suggestivo", maps: "https://maps.google.com/?cid=15079899854844158704" },
+
+    // Giorno 5 — Partenza
+    { day: 4, name: "Via Cola di Rienzo", lat: 41.9051, lng: 12.4660, note: "Ultimo giro per shopping prima del check-out", maps: "https://maps.google.com/?cid=8643974027051012173" }
+  ];
+
+  let leafletMap, markerLayer;
+
+  function initMap() {
+    leafletMap = L.map('leafletMap', { scrollWheelZoom: false }).setView([41.8995, 12.4768], 14);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(leafletMap);
+
+    markerLayer = L.layerGroup().addTo(leafletMap);
+    renderMarkers('all');
+  }
+
+  function renderMarkers(filter) {
+    markerLayer.clearLayers();
+    const bounds = [];
+
+    tripLocations.forEach(loc => {
+      if (filter !== 'all' && loc.day !== filter) return;
+
+      const color = dayColors[loc.day];
+      const marker = L.circleMarker([loc.lat, loc.lng], {
+        radius: 9,
+        fillColor: color,
+        color: '#fff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.9
+      });
+
+      marker.bindPopup(`
+        <div class="popup-title">${loc.name}</div>
+        <div class="popup-note">${loc.note}</div>
+        <a class="popup-link" href="${loc.maps}" target="_blank" rel="noopener">Apri in Google Maps →</a>
+      `);
+
+      marker.addTo(markerLayer);
+      bounds.push([loc.lat, loc.lng]);
+    });
+
+    if (bounds.length > 0) {
+      leafletMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 16 });
+    }
+  }
+
+  function filterMap(dayFilter, btnEl) {
+    document.querySelectorAll('.map-filter-btn').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+    renderMarkers(dayFilter);
+  }
+
+  initMap();
+</script>
+
+<script>
+  const EXPENSES_KEY = 'roma2026_expenses';
+
+  function loadExpenses() {
+    try {
+      return JSON.parse(localStorage.getItem(EXPENSES_KEY) || '[]');
+    } catch(e) { return []; }
+  }
+
+  function saveExpenses(list) {
+    localStorage.setItem(EXPENSES_KEY, JSON.stringify(list));
+  }
+
+  function formatEuro(num) {
+    return num.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  }
+
+  function renderExpenses() {
+    const list = loadExpenses();
+    const container = document.getElementById('expensesList');
+    const emptyMsg = document.getElementById('expensesEmpty');
+
+    if (list.length === 0) {
+      container.innerHTML = '<div class="expenses-empty" id="expensesEmpty">Nessuna spesa registrata — aggiungine una qui sopra!</div>';
+    } else {
+      container.innerHTML = list.map((exp, i) => `
+        <div class="expense-row">
+          <span class="expense-row-desc">${escapeHtml(exp.desc)}</span>
+          <span>${exp.person}</span>
+          <span class="expense-row-amount">${formatEuro(exp.amount)}</span>
+          <button class="expense-delete-btn" onclick="deleteExpense(${i})" title="Elimina">✕</button>
+        </div>
+      `).join('');
+    }
+
+    let totalVincenzo = 0, totalMatteo = 0;
+    list.forEach(exp => {
+      if (exp.person === 'Vincenzo') totalVincenzo += exp.amount;
+      else if (exp.person === 'Matteo') totalMatteo += exp.amount;
+    });
+
+    document.getElementById('totalVincenzo').textContent = formatEuro(totalVincenzo);
+    document.getElementById('totalMatteo').textContent = formatEuro(totalMatteo);
+    document.getElementById('totalGrand').textContent = formatEuro(totalVincenzo + totalMatteo);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function addExpense() {
+    const descInput = document.getElementById('expenseDesc');
+    const amountInput = document.getElementById('expenseAmount');
+    const personSelect = document.getElementById('expensePerson');
+
+    const desc = descInput.value.trim();
+    const amount = parseFloat(amountInput.value);
+    const person = personSelect.value;
+
+    if (!desc || isNaN(amount) || amount <= 0) {
+      alert('Inserisci una descrizione e un importo valido.');
+      return;
+    }
+
+    const list = loadExpenses();
+    list.push({ desc, amount, person });
+    saveExpenses(list);
+
+    descInput.value = '';
+    amountInput.value = '';
+    descInput.focus();
+
+    renderExpenses();
+  }
+
+  function deleteExpense(index) {
+    const list = loadExpenses();
+    list.splice(index, 1);
+    saveExpenses(list);
+    renderExpenses();
+  }
+
+  // Permette di aggiungere la spesa premendo Enter sull'importo
+  document.getElementById('expenseAmount').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') addExpense();
+  });
+  document.getElementById('expenseDesc').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') document.getElementById('expenseAmount').focus();
+  });
+
+  renderExpenses();
 </script>
 </body>
 </html>
