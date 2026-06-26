@@ -1260,8 +1260,8 @@
 <nav class="day-nav">
   <button class="day-tab active" onclick="showDay(0)">Ven 26/6 · Arrivo</button>
   <button class="day-tab" onclick="showDay(1)">Sab 27/6 · Centro Storico</button>
-  <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Colosseo</button>
-  <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Borghese</button>
+  <button class="day-tab" onclick="showDay(2)">Dom 28/6 · Trastevere</button>
+  <button class="day-tab" onclick="showDay(3)">Lun 29/6 · Colosseo/Borghese</button>
   <button class="day-tab" onclick="showDay(4)">Mar 30/6 · Partenza</button>
 </nav>
 
@@ -1648,7 +1648,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 3</p>
-        <h2 class="day-title">Domenica 28 Giugno<br><em>Roma Antica</em></h2>
+        <h2 class="day-title">Domenica 28 Giugno<br><em>Trastevere &amp; Roma Antica</em></h2>
       </div>
       <span class="day-completion" id="day-2-comp"></span>
     </div>
@@ -1656,65 +1656,95 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Il Cuore Antico</span>
+        <span class="time-label-text">Mattina · Trastevere</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione e partenza per il Colosseo. Conviene prendere la metro A fino a Termini e poi la metro B fino a Colosseo, oppure camminare se si preferisce iniziare con un percorso più tranquillo.</p>
+          <p class="activity-text">Colazione in zona Prati e preparazione per la giornata.</p>
         </div>
-        <span class="activity-badge badge-transport">Metro A + B</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">09:00</p>
-          <p class="activity-text">Visita del Colosseo con biglietto prenotato in anticipo.</p>
+          <p class="activity-time">09:30</p>
+          <p class="activity-text">Arrivo a Trastevere — passeggiata senza fretta tra le stradine del quartiere. Da non perdere: Piazza Santa Maria in Trastevere, vicoli storici, edifici ricoperti di edera, botteghe artigianali.</p>
         </div>
-        <span class="activity-badge badge-ticket">36-40 €/2p</span>
+        <span class="activity-badge badge-free">Gratuito</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">11:30</p>
-          <p class="activity-text">Proseguimento verso il Foro Romano e il Palatino. La visita è più lenta e panoramica: il percorso archeologico permette di capire la struttura della Roma imperiale.</p>
+          <p class="activity-time">11:00</p>
+          <p class="activity-text">Basilica di Santa Maria in Trastevere — una delle chiese più antiche di Roma. Da osservare: mosaici absidali, soffitto decorato, atmosfera raccolta e suggestiva.</p>
         </div>
-        <span class="activity-badge badge-free">Incluso</span>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">11:45</p>
+          <p class="activity-text">Passeggiata nel cuore di Trastevere, senza una meta precisa. Zone più caratteristiche: Via della Lungaretta, Vicolo del Cinque, Piazza Trilussa.</p>
+        </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo · Vicino al Colosseo</span>
+        <span class="time-label-text">Pranzo · Trastevere</span>
       </div>
+
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🍝 Pranzo</span>
+        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Ristoro Della Salute</span>
+          <span class="restaurant-name"><span class="rank">1°</span>Tonnarello</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Piazza del Colosseo 2A, 00184 Roma
+          Via Della Paglia 1,2,3, 00153 Roma
         </p>
         <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/AreyYpqsC9QKJaSB9" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
           </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d13443832-Reviews-Tonnarello-Rome_Lazio.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
             TripAdvisor
           </a>
         </div>
+        <p class="restaurant-note">Piatti consigliati: carbonara, cacio e pepe, amatriciana.</p>
+      </div>
+
+      <div class="restaurant-card">
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
+        <div class="restaurant-header">
+          <span class="restaurant-name"><span class="rank">2°</span>Nannarella</span>
+        </div>
+        <p class="restaurant-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Piazza Di San Calisto 7/A-8, 00153 Roma
+        </p>
+        <div class="restaurant-links">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/9gz7upp9b884jkdr6" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Google Maps
+          </a>
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d14173461-Reviews-Nannarella-Rome_Lazio.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+            TripAdvisor
+          </a>
+        </div>
+        <p class="restaurant-note">Ottima cucina romana tradizionale.</p>
       </div>
 
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">13:30</p>
-          <p class="activity-text">Pranzo vicino al Colosseo, così da non perdere tempo in spostamenti inutili.</p>
+          <p class="activity-time">13:00</p>
+          <p class="activity-text">Pranzo a Trastevere.</p>
         </div>
       </div>
     </div>
@@ -1722,43 +1752,50 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Piazza Venezia e Campidoglio</span>
+        <span class="time-label-text">Pomeriggio · Aventino e Roma Antica</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">15:00</p>
-          <p class="activity-text">Piazza Venezia, Altare della Patria e Campidoglio. Questi luoghi sono vicini tra loro e si inseriscono bene nello stesso pomeriggio.</p>
+          <p class="activity-time">14:30</p>
+          <p class="activity-text">Giardino degli Aranci — dopo pranzo raggiungete il colle Aventino. Questo parco offre una delle viste più belle sulla città. 📸 Punto fotografico consigliato.</p>
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
-
-      <div class="restaurant-card" style="margin-top:1rem">
-        <span class="restaurant-meal-tag">🍨 Merenda / Dolce</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">Gelateria La Romana dal 1947</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Venti Settembre 60, incrocio Via Piave 1, 00184 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/nLEPEMeCnYa8bN127" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4492728-Reviews-Gelateria_La_Romana-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">15:15</p>
+          <p class="activity-text">Terrazza dell'Aventino — passeggiata lungo il colle.</p>
         </div>
       </div>
-
-      <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">15:45</p>
+          <p class="activity-text">Buco della Serratura — uno dei luoghi più curiosi di Roma. Attraverso la serratura del portone del Priorato dei Cavalieri di Malta si vede perfettamente la Cupola di San Pietro.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">16:30</p>
+          <p class="activity-text">Bocca della Verità — uno dei simboli più famosi della città.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">17:30</p>
-          <p class="activity-text">Tempo libero per fotografie e breve passeggiata nel centro storico romano.</p>
+          <p class="activity-text">Isola Tiberina — passeggiata lungo il Tevere.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">18:15</p>
+          <p class="activity-text">Campo de' Fiori — una delle piazze più vive della città.</p>
         </div>
       </div>
     </div>
@@ -1766,34 +1803,13 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Cena · Roma Antica / Testaccio</span>
+        <span class="time-label-text">Cena · Testaccio</span>
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥇 Cena</span>
+        <span class="restaurant-meal-tag">🥇 Prima scelta</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Trattoria della Stampa</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          32 Via dei Maroniti, 00187 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/7y1ZB19rgRK95BaGA" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2092218-Reviews-Trattoria_della_Stampa-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
-        </div>
-      </div>
-
-      <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🥈 Alternativa Testaccio</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">Trattoria Dal Cordaro</span>
+          <span class="restaurant-name"><span class="rank">1°</span>Trattoria Dal Cordaro</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1809,12 +1825,13 @@
             TripAdvisor
           </a>
         </div>
+        <p class="restaurant-note">Piatti consigliati: carciofi alla romana, amatriciana, saltimbocca.</p>
       </div>
 
       <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🌹 Alternativa Trastevere</span>
+        <span class="restaurant-meal-tag">🥈 Alternativa</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Rosa - Cibo Italiano</span>
+          <span class="restaurant-name"><span class="rank">2°</span>Rosa - Cibo Italiano</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1830,23 +1847,32 @@
             TripAdvisor
           </a>
         </div>
+        <p class="restaurant-note">Cucina romana moderna all'interno del Mercato di Testaccio.</p>
       </div>
 
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">20:00</p>
-          <p class="activity-text">Cena in zona Roma Antica o Testaccio.</p>
+          <p class="activity-text">Cena a Testaccio.</p>
         </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">22:00</p>
+          <p class="activity-text">Rientro a Prati con autobus o taxi.</p>
+        </div>
+        <span class="activity-badge badge-transport">Bus/Taxi</span>
       </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Prenotare in anticipo i biglietti del Colosseo per evitare lunghe code</li>
-        <li>Foro Romano e Palatino richiedono molta camminata: scarpe comode!</li>
-        <li>Piazza Venezia, Altare della Patria e Campidoglio sono vicinissimi tra loro</li>
+        <li>Trastevere è uno dei quartieri più fotografati di Roma — prendetevi tempo per passeggiare senza fretta</li>
+        <li>Il Buco della Serratura è un punto curioso ma con possibile fila: provate ad arrivare presto</li>
+        <li>Giornata ricca di tappe: scarpe comode indispensabili</li>
       </ul>
     </div>
   </div>
@@ -1855,7 +1881,7 @@
     <div class="day-header">
       <div>
         <p class="day-number">Giorno 4</p>
-        <h2 class="day-title">Lunedì 29 Giugno<br><em>Villa Borghese &amp; Gianicolo al Tramonto</em></h2>
+        <h2 class="day-title">Lunedì 29 Giugno<br><em>Colosseo, Villa Borghese &amp; Gianicolo al Tramonto</em></h2>
       </div>
       <span class="day-completion" id="day-3-comp"></span>
     </div>
@@ -1863,86 +1889,93 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon morning">🌅</div>
-        <span class="time-label-text">Mattina · Villa Borghese</span>
+        <span class="time-label-text">Mattina · Colosseo, Foro e Palatino</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">08:30</p>
-          <p class="activity-text">Colazione e partenza verso Villa Borghese. La mattina è perfetta per una passeggiata lenta, con temperature più gradevoli e meno affollamento.</p>
+          <p class="activity-time">08:00</p>
+          <p class="activity-text">Colazione in zona Prati.</p>
         </div>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">09:15</p>
-          <p class="activity-text">Villa Borghese, Laghetto e Terrazza del Pincio. Questa area è ideale per una visita rilassata e panoramica, con una delle viste più belle su Roma.</p>
+          <p class="activity-time">09:00</p>
+          <p class="activity-text">Partenza: Metro A Ottaviano → Termini, poi Metro B Termini → Colosseo.</p>
         </div>
-        <span class="activity-badge badge-free">Gratuito</span>
+        <span class="activity-badge badge-transport">Metro A + B</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">11:30</p>
-          <p class="activity-text">Piazza del Popolo, raggiungibile facilmente a piedi dal Pincio.</p>
+          <p class="activity-time">09:45</p>
+          <p class="activity-text">Arrivo al Colosseo — arrivate con anticipo per il controllo dei biglietti e l'incontro con la guida.</p>
         </div>
-        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">10:30</p>
+          <p class="activity-text"><strong>Colosseo</strong> — visita guidata completa dell'anfiteatro più famoso del mondo. Da osservare: arena, gradinate, sotterranei (se inclusi nel biglietto).</p>
+        </div>
+        <span class="activity-badge badge-ticket">36-40 €/2p</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-text"><strong>Foro Romano</strong> — passeggiata tra i luoghi che hanno visto nascere e svilupparsi la civiltà romana. Punti principali: Via Sacra, Tempio di Saturno, Curia, Arco di Settimio Severo.</p>
+        </div>
+        <span class="activity-badge badge-free">Incluso</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-text"><strong>Palatino</strong> — secondo la tradizione il luogo dove Romolo fondò Roma. Da vedere: resti dei palazzi imperiali, belvedere panoramici, Giardini Farnesiani.</p>
+        </div>
+        <span class="activity-badge badge-free">Incluso</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">13:30</p>
+          <p class="activity-text">Fine visita guidata.</p>
+        </div>
       </div>
     </div>
 
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon food">🍽️</div>
-        <span class="time-label-text">Pranzo</span>
+        <span class="time-label-text">Pranzo · Davanti al Colosseo</span>
       </div>
-
-      <div class="restaurant-card">
-        <span class="restaurant-meal-tag">🍰 Colazione / Dolce</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">Pompi</span>
-        </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Albalonga 7 B, 00183 Roma — tiramisù iconico
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/KTSg2oWvwujSiDJV7" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1025826-Reviews-Pompi-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
-        </div>
-      </div>
-
       <div class="restaurant-card">
         <span class="restaurant-meal-tag">🍝 Pranzo</span>
         <div class="restaurant-header">
-          <span class="restaurant-name">Osteria del Rione</span>
+          <span class="restaurant-name">Ristoro Della Salute</span>
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Basento 20, 00198 Roma
+          Piazza del Colosseo 2A, 00184 Roma — posizione ideale davanti al Colosseo
         </p>
         <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/oF7G3KcrwsjZ2YDz7" target="_blank" rel="noopener">
+          <a class="link-btn link-maps" href="https://maps.app.goo.gl/NpyCAUAfHfaxUjJXA" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             Google Maps
           </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d2691458-Reviews-Osteria_del_Rione-Rome_Lazio.html" target="_blank" rel="noopener">
+          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d1528586-Reviews-Ristoro_Della_Salute-Rome_Lazio.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
             TripAdvisor
           </a>
         </div>
+        <p class="restaurant-note">Consigliati: pasta romana, secondi tipici, tiramisù.</p>
       </div>
 
       <div class="activity" onclick="toggle(this)" style="margin-top:0.8rem">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">13:00</p>
-          <p class="activity-text">Pranzo in zona Piazzale Flaminio / Villa Borghese / Prati.</p>
+          <p class="activity-time">13:45</p>
+          <p class="activity-text">Pranzo davanti al Colosseo.</p>
         </div>
       </div>
     </div>
@@ -1950,35 +1983,44 @@
     <div class="time-section">
       <div class="time-label">
         <div class="time-label-icon afternoon">☀️</div>
-        <span class="time-label-text">Pomeriggio · Castel Sant'Angelo</span>
+        <span class="time-label-text">Pomeriggio · Villa Borghese, Pincio e Piazza del Popolo</span>
       </div>
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">15:00</p>
-          <p class="activity-text">Castel Sant'Angelo, Ponte Sant'Angelo e Lungotevere. La passeggiata è piacevole e lineare.</p>
+          <p class="activity-time">15:15</p>
+          <p class="activity-text">Trasferimento a Villa Borghese: Metro B Colosseo → Termini, Metro A Termini → Flaminio.</p>
         </div>
-        <span class="activity-badge badge-ticket">30-36 €/2p</span>
+        <span class="activity-badge badge-transport">Metro B + A</span>
       </div>
-
-      <div class="restaurant-card" style="margin-top:1rem">
-        <span class="restaurant-meal-tag">🍕 Merenda</span>
-        <div class="restaurant-header">
-          <span class="restaurant-name">Pizza e Mozzarella</span>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">16:00</p>
+          <p class="activity-text">Villa Borghese — passeggiata rilassante dopo la visita archeologica. Da vedere: viali alberati, laghetto, Tempio di Esculapio.</p>
         </div>
-        <p class="restaurant-address">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via del Piè di Marmo, 32, 00186 Roma
-        </p>
-        <div class="restaurant-links">
-          <a class="link-btn link-maps" href="https://maps.app.goo.gl/z4cFX3uviEhJ59Ku6" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Google Maps
-          </a>
-          <a class="link-btn link-trip" href="https://www.tripadvisor.it/Restaurant_Review-g187791-d4437197-Reviews-Pizza_e_Mozzarella-Rome_Lazio.html" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
-            TripAdvisor
-          </a>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:00</p>
+          <p class="activity-text">Terrazza del Pincio — uno dei punti panoramici più belli di Roma. 📸 Vista su Piazza del Popolo, Cupola di San Pietro, centro storico.</p>
+        </div>
+        <span class="activity-badge badge-free">Gratuito</span>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">17:45</p>
+          <p class="activity-text">Piazza del Popolo — visita della piazza monumentale.</p>
+        </div>
+      </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">19:00</p>
+          <p class="activity-text">Rientro in alloggio per un breve relax prima dell'ultima serata.</p>
         </div>
       </div>
     </div>
@@ -1991,8 +2033,8 @@
       <div class="activity" onclick="toggle(this)">
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
-          <p class="activity-time">19:45</p>
-          <p class="activity-text">Salita al Gianicolo in anticipo rispetto al tramonto. La luce del tardo pomeriggio è il momento migliore per godersi il panorama su tutta la città.</p>
+          <p class="activity-time">20:00</p>
+          <p class="activity-text">Salita al Gianicolo — raggiungete il belvedere con un po' di anticipo.</p>
         </div>
         <span class="activity-badge badge-free">Gratuito</span>
       </div>
@@ -2000,7 +2042,7 @@
         <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
         <div class="activity-content">
           <p class="activity-time">20:45</p>
-          <p class="activity-text">🌅 Tramonto sul Gianicolo — Cupola di San Pietro illuminata, panorama notturno. Probabilmente la visita più suggestiva di tutto il viaggio.</p>
+          <p class="activity-text">🌅 Tramonto sul Gianicolo — il momento più suggestivo dell'intero viaggio. Da qui: Cupola di San Pietro, Altare della Patria, centro storico illuminato. 📸 Miglior foto panoramica del viaggio.</p>
         </div>
       </div>
     </div>
@@ -2018,7 +2060,7 @@
         </div>
         <p class="restaurant-address">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Via Leone IV 123, 00192 Roma
+          Via Leone IV 123, 00192 Roma — a pochi minuti dall'alloggio
         </p>
         <div class="restaurant-links">
           <a class="link-btn link-maps" href="https://maps.app.goo.gl/mDcKgjj7dajr5q1z5" target="_blank" rel="noopener">
@@ -2030,6 +2072,7 @@
             TripAdvisor
           </a>
         </div>
+        <p class="restaurant-note">Piatti consigliati: carbonara, cacio e pepe, polpette al sugo.</p>
       </div>
 
       <div class="restaurant-card">
@@ -2060,17 +2103,25 @@
           <p class="activity-text">Cena finale in zona Prati.</p>
         </div>
       </div>
+      <div class="activity" onclick="toggle(this)">
+        <div class="activity-checkbox"><svg viewBox="0 0 12 10"><polyline points="1,5 4,9 11,1"/></svg></div>
+        <div class="activity-content">
+          <p class="activity-time">23:00</p>
+          <p class="activity-text">Passeggiata finale a Prati — ultima passeggiata serale tra Via Cola di Rienzo e le strade del quartiere.</p>
+        </div>
+      </div>
     </div>
 
     <div class="tips-box">
       <h4>⚑ Consigli per oggi</h4>
       <ul>
-        <li>Villa Borghese, Pincio e Piazza del Popolo sono praticamente la stessa zona — giornata lineare e poco stancante</li>
+        <li>Arrivate al Colosseo con anticipo per il controllo dei biglietti e l'incontro con la guida</li>
+        <li>Giornata lunga e intensa: ottima colazione al mattino per avere energia</li>
         <li>Arrivare al Gianicolo almeno 30 minuti prima del tramonto per un buon posto</li>
-        <li>Prenotare in anticipo Castel Sant'Angelo per evitare attese</li>
       </ul>
     </div>
   </div>
+
 
   <div class="day-panel" id="day-4">
     <div class="day-header">
@@ -2213,8 +2264,8 @@
   <div class="map-legend">
     <div class="map-legend-item"><span class="map-legend-dot" style="background:#c4622d"></span> Giorno 1 — Vaticano</div>
     <div class="map-legend-item"><span class="map-legend-dot" style="background:#1565c0"></span> Giorno 2 — Centro Storico</div>
-    <div class="map-legend-item"><span class="map-legend-dot" style="background:#2e7d32"></span> Giorno 3 — Colosseo</div>
-    <div class="map-legend-item"><span class="map-legend-dot" style="background:#c9a84c"></span> Giorno 4 — Borghese/Gianicolo</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#2e7d32"></span> Giorno 3 — Trastevere</div>
+    <div class="map-legend-item"><span class="map-legend-dot" style="background:#c9a84c"></span> Giorno 4 — Colosseo/Borghese</div>
     <div class="map-legend-item"><span class="map-legend-dot" style="background:#8a7a6a"></span> Giorno 5 — Partenza</div>
   </div>
 </section>
@@ -2635,17 +2686,21 @@
     { day: 1, name: "Fontana di Trevi", lat: 41.900933, lng: 12.483313, note: "Lancia la monetina!", maps: "https://maps.google.com/?cid=17759648132674796470" },
     { day: 1, name: "Piazza di Spagna", lat: 41.905698, lng: 12.482327, note: "Scalinata di Trinità dei Monti, Via Condotti", maps: "https://maps.google.com/?cid=16750812090928552248" },
 
-    // Giorno 3 — Colosseo, Foro, Palatino, Piazza Venezia
-    { day: 2, name: "Colosseo", lat: 41.890210, lng: 12.492231, note: "Biglietto Colosseo+Foro+Palatino ~36-40€ per 2", maps: "https://maps.google.com/?cid=2950359333223072708" },
-    { day: 2, name: "Foro Romano", lat: 41.892091, lng: 12.486438, note: "Incluso nel biglietto del Colosseo", maps: "https://maps.google.com/?cid=18055282783150702054" },
-    { day: 2, name: "Piazza Venezia", lat: 41.895766, lng: 12.482574, note: "Altare della Patria e Campidoglio", maps: "https://maps.google.com/?cid=3542587283635871459" },
+    // Giorno 3 — Trastevere & Roma Antica
+    { day: 2, name: "Santa Maria in Trastevere", lat: 41.889493, lng: 12.469836, note: "Mosaici dorati del XIII secolo", maps: "https://maps.google.com/?cid=3920193208311365666" },
+    { day: 2, name: "Giardino degli Aranci", lat: 41.885134, lng: 12.480390, note: "Vista panoramica sull'Aventino", maps: "https://maps.google.com/?cid=268412999884687609" },
+    { day: 2, name: "Buco della Serratura", lat: 41.884512, lng: 12.479742, note: "Cupola di San Pietro attraverso la serratura", maps: "https://maps.google.com/?cid=268412999884687609" },
+    { day: 2, name: "Bocca della Verità", lat: 41.888238, lng: 12.481444, note: "Basilica S. Maria in Cosmedin", maps: "https://maps.google.com/?cid=9396440243381514727" },
+    { day: 2, name: "Isola Tiberina", lat: 41.8895, lng: 12.4775, note: "Passeggiata lungo il Tevere", maps: "https://maps.google.com/?cid=9396440243381514727" },
+    { day: 2, name: "Campo de' Fiori", lat: 41.895605, lng: 12.472176, note: "Una delle piazze più vive della città", maps: "https://maps.google.com/?cid=1731911669032481476" },
 
-    // Giorno 4 — Borghese, Pincio, Popolo, Castel Sant'Angelo, Gianicolo
-    { day: 3, name: "Villa Borghese (parco)", lat: 41.913878, lng: 12.485382, note: "Laghetto e viali panoramici", maps: "https://maps.google.com/?cid=16950841178214075972" },
+    // Giorno 4 — Colosseo, Borghese, Pincio, Popolo, Gianicolo
+    { day: 3, name: "Colosseo", lat: 41.890210, lng: 12.492231, note: "Visita guidata, biglietto ~36-40€ per 2", maps: "https://maps.google.com/?cid=2950359333223072708" },
+    { day: 3, name: "Foro Romano", lat: 41.892091, lng: 12.486438, note: "Incluso nella visita guidata", maps: "https://maps.google.com/?cid=18055282783150702054" },
+    { day: 3, name: "Villa Borghese (parco)", lat: 41.913878, lng: 12.485382, note: "Laghetto e viali alberati", maps: "https://maps.google.com/?cid=16950841178214075972" },
     { day: 3, name: "Terrazza del Pincio", lat: 41.912, lng: 12.477, note: "Una delle viste più belle su Roma", maps: "https://maps.google.com/?cid=16950841178214075972" },
     { day: 3, name: "Piazza del Popolo", lat: 41.910704, lng: 12.476358, note: "Raggiungibile a piedi dal Pincio", maps: "https://maps.google.com/?cid=4895025766821938000" },
-    { day: 3, name: "Castel Sant'Angelo", lat: 41.903063, lng: 12.466276, note: "Ponte Sant'Angelo e Lungotevere ~30-36€ per 2", maps: "https://maps.google.com/?cid=3921528191373361545" },
-    { day: 3, name: "Gianicolo Belvedere", lat: 41.891563, lng: 12.461105, note: "Tramonto + Cupola illuminata — il momento più suggestivo", maps: "https://maps.google.com/?cid=15079899854844158704" },
+    { day: 3, name: "Gianicolo Belvedere", lat: 41.891563, lng: 12.461105, note: "Tramonto — il momento più suggestivo del viaggio", maps: "https://maps.google.com/?cid=15079899854844158704" },
 
     // Giorno 5 — Partenza
     { day: 4, name: "Via Cola di Rienzo", lat: 41.9051, lng: 12.4660, note: "Ultimo giro per shopping prima del check-out", maps: "https://maps.google.com/?cid=8643974027051012173" }
